@@ -174,7 +174,27 @@
           },
           "position": {
             "x": -400,
-            "y": 120
+            "y": 96
+          }
+        },
+        {
+          "id": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
+          "type": "basic.input",
+          "data": {
+            "name": "dyn_clk",
+            "pins": [
+              {
+                "index": "0",
+                "name": "",
+                "value": "0"
+              }
+            ],
+            "virtual": true,
+            "clock": false
+          },
+          "position": {
+            "x": -400,
+            "y": 176
           }
         },
         {
@@ -318,28 +338,8 @@
             "virtual": true
           },
           "position": {
-            "x": 792,
-            "y": 176
-          }
-        },
-        {
-          "id": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
-          "type": "basic.input",
-          "data": {
-            "name": "dyn_clk",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -400,
-            "y": 192
+            "x": 824,
+            "y": 240
           }
         },
         {
@@ -359,7 +359,7 @@
           },
           "position": {
             "x": -400,
-            "y": 264
+            "y": 240
           }
         },
         {
@@ -377,8 +377,8 @@
             "virtual": true
           },
           "position": {
-            "x": 792,
-            "y": 312
+            "x": 824,
+            "y": 360
           }
         },
         {
@@ -398,7 +398,7 @@
           },
           "position": {
             "x": -400,
-            "y": 336
+            "y": 472
           }
         },
         {
@@ -418,7 +418,7 @@
           },
           "position": {
             "x": -400,
-            "y": 400
+            "y": 536
           }
         },
         {
@@ -438,7 +438,7 @@
           },
           "position": {
             "x": -400,
-            "y": 472
+            "y": 608
           }
         },
         {
@@ -458,19 +458,68 @@
           },
           "position": {
             "x": -400,
-            "y": 536
+            "y": 672
           }
         },
         {
-          "id": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
-          "type": "de0843995352d29fcc17f7506e2434736934cb49",
+          "id": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
+          "type": "13a3b418aadac7285c344110d835bf902ffd2985",
           "position": {
-            "x": 440,
-            "y": 144
+            "x": 520,
+            "y": 112
           },
           "size": {
             "width": 96,
-            "height": 256
+            "height": 320
+          }
+        },
+        {
+          "id": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+          "type": "basic.code",
+          "data": {
+            "code": "reg [3:0] sprite;\nreg [5:0] posx = 10;\nreg [5:0] posy = 10;\nreg update;\n\nalways @(posedge dyn_clk)\nbegin\n    update <= ~update;\n    sprite <= 7;\n\n    // Movimientos.\n    if (left)\n        posx <= posx + 1;\n    if (right)\n        posx <= posx - 1;\n\n    // Límites.\n    if (posx < 0)\n        posx <= 0;\n    if (posx > 39)\n        posx <= 39;\nend",
+            "params": [],
+            "ports": {
+              "in": [
+                {
+                  "name": "dyn_clk"
+                },
+                {
+                  "name": "left"
+                },
+                {
+                  "name": "right"
+                }
+              ],
+              "out": [
+                {
+                  "name": "sprite",
+                  "range": "[3:0]",
+                  "size": 4
+                },
+                {
+                  "name": "update"
+                },
+                {
+                  "name": "posx",
+                  "range": "[5:0]",
+                  "size": 6
+                },
+                {
+                  "name": "posy",
+                  "range": "[5:0]",
+                  "size": 6
+                }
+              ]
+            }
+          },
+          "position": {
+            "x": -176,
+            "y": 184
+          },
+          "size": {
+            "width": 320,
+            "height": 248
           }
         }
       ],
@@ -481,7 +530,7 @@
             "port": "out"
           },
           "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "42825077-fafc-4e85-ab47-0c3052e53228"
           }
         },
@@ -491,7 +540,7 @@
             "port": "out"
           },
           "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "34ef8db8-afa3-45e5-8f03-2f1db5f06301"
           },
           "size": 26
@@ -502,13 +551,13 @@
             "port": "out"
           },
           "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "2ee24aa1-c564-4f74-ac6d-e456a4f66517"
           },
           "vertices": [
             {
-              "x": 256,
-              "y": 328
+              "x": 376,
+              "y": 440
             }
           ]
         },
@@ -518,13 +567,13 @@
             "port": "out"
           },
           "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "f76a17c1-c4db-4043-9c7a-366a28595c47"
           },
           "vertices": [
             {
-              "x": 288,
-              "y": 336
+              "x": 408,
+              "y": 488
             }
           ]
         },
@@ -534,13 +583,13 @@
             "port": "out"
           },
           "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "baf40555-8a68-4a71-91b2-d04885c48e5d"
           },
           "vertices": [
             {
-              "x": 320,
-              "y": 392
+              "x": 440,
+              "y": 528
             }
           ]
         },
@@ -550,29 +599,19 @@
             "port": "out"
           },
           "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "3ef73ee7-c09a-438d-b5a9-6cafcac473d0"
           },
           "vertices": [
             {
-              "x": 352,
-              "y": 440
+              "x": 472,
+              "y": 552
             }
           ]
         },
         {
           "source": {
-            "block": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
-            "port": "out"
-          },
-          "target": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
-            "port": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918"
-          }
-        },
-        {
-          "source": {
-            "block": "534b7e2f-e0ed-4af8-8fe1-618e589f3352",
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
             "port": "eeb7f72c-5a73-4347-9c78-1a37d276caa2"
           },
           "target": {
@@ -580,12 +619,109 @@
             "port": "in"
           },
           "size": 26
+        },
+        {
+          "source": {
+            "block": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
+            "port": "out"
+          },
+          "target": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "dyn_clk"
+          }
+        },
+        {
+          "source": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "update"
+          },
+          "target": {
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
+            "port": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918"
+          },
+          "vertices": [
+            {
+              "x": 288,
+              "y": 256
+            }
+          ]
+        },
+        {
+          "source": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "sprite"
+          },
+          "target": {
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
+            "port": "9e73eae9-1987-4a62-a3fe-a29f0821afd2"
+          },
+          "vertices": [
+            {
+              "x": 272,
+              "y": 208
+            }
+          ],
+          "size": 4
+        },
+        {
+          "source": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "posx"
+          },
+          "target": {
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
+            "port": "2f92b91f-6ed0-42b5-b619-b6c2aa5b248b"
+          },
+          "vertices": [
+            {
+              "x": 320,
+              "y": 288
+            }
+          ],
+          "size": 6
+        },
+        {
+          "source": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "posy"
+          },
+          "target": {
+            "block": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
+            "port": "efcdf2fe-cb72-4e25-a3f7-7231f757a45c"
+          },
+          "vertices": [
+            {
+              "x": 352,
+              "y": 328
+            }
+          ],
+          "size": 6
+        },
+        {
+          "source": {
+            "block": "2ee24aa1-c564-4f74-ac6d-e456a4f66517",
+            "port": "out"
+          },
+          "target": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "left"
+          }
+        },
+        {
+          "source": {
+            "block": "f76a17c1-c4db-4043-9c7a-366a28595c47",
+            "port": "out"
+          },
+          "target": {
+            "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+            "port": "right"
+          }
         }
       ]
     }
   },
   "dependencies": {
-    "de0843995352d29fcc17f7506e2434736934cb49": {
+    "13a3b418aadac7285c344110d835bf902ffd2985": {
       "package": {
         "name": "PxsGameTable",
         "version": "1.0",
@@ -623,27 +759,29 @@
               }
             },
             {
-              "id": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
+              "id": "9e73eae9-1987-4a62-a3fe-a29f0821afd2",
               "type": "basic.input",
               "data": {
-                "name": "dyn_clk",
-                "clock": false
+                "name": "sprite_i",
+                "range": "[3:0]",
+                "clock": false,
+                "size": 4
               },
               "position": {
                 "x": -400,
-                "y": 344
+                "y": 488
               }
             },
             {
-              "id": "18abcc78-0220-49c7-9c06-bd99bfb271d8",
+              "id": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
               "type": "basic.input",
               "data": {
-                "name": "start",
+                "name": "update",
                 "clock": false
               },
               "position": {
                 "x": -400,
-                "y": 424
+                "y": 552
               }
             },
             {
@@ -655,8 +793,36 @@
                 "size": 26
               },
               "position": {
-                "x": 1440,
+                "x": 1472,
                 "y": 576
+              }
+            },
+            {
+              "id": "2f92b91f-6ed0-42b5-b619-b6c2aa5b248b",
+              "type": "basic.input",
+              "data": {
+                "name": "posx_tab",
+                "range": "[5:0]",
+                "clock": false,
+                "size": 6
+              },
+              "position": {
+                "x": -400,
+                "y": 616
+              }
+            },
+            {
+              "id": "efcdf2fe-cb72-4e25-a3f7-7231f757a45c",
+              "type": "basic.input",
+              "data": {
+                "name": "posy_tab",
+                "range": "[5:0]",
+                "clock": false,
+                "size": 6
+              },
+              "position": {
+                "x": -400,
+                "y": 680
               }
             },
             {
@@ -667,19 +833,8 @@
                 "clock": false
               },
               "position": {
-                "x": -304,
-                "y": 608
-              }
-            },
-            {
-              "id": "06d3dec4-c2d9-4b12-8516-a989809d16e8",
-              "type": "basic.output",
-              "data": {
-                "name": "sound"
-              },
-              "position": {
-                "x": 1440,
-                "y": 664
+                "x": -400,
+                "y": 792
               }
             },
             {
@@ -690,8 +845,8 @@
                 "clock": false
               },
               "position": {
-                "x": -304,
-                "y": 672
+                "x": -400,
+                "y": 856
               }
             },
             {
@@ -702,8 +857,8 @@
                 "clock": false
               },
               "position": {
-                "x": -304,
-                "y": 744
+                "x": -400,
+                "y": 928
               }
             },
             {
@@ -714,8 +869,8 @@
                 "clock": false
               },
               "position": {
-                "x": -304,
-                "y": 808
+                "x": -400,
+                "y": 992
               }
             },
             {
@@ -766,7 +921,7 @@
               },
               "position": {
                 "x": 624,
-                "y": 208
+                "y": 168
               },
               "size": {
                 "width": 320,
@@ -815,20 +970,20 @@
                 }
               },
               "position": {
-                "x": -104,
-                "y": 224
+                "x": -168,
+                "y": 192
               },
               "size": {
-                "width": 536,
-                "height": 376
+                "width": 528,
+                "height": 280
               }
             },
             {
               "id": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
               "type": "ddaab1cd797a69d97baf783a98cb87b8a0d48d22",
               "position": {
-                "x": 704,
-                "y": 464
+                "x": 688,
+                "y": 440
               },
               "size": {
                 "width": 96,
@@ -845,6 +1000,43 @@
               "size": {
                 "width": 96,
                 "height": 288
+              }
+            },
+            {
+              "id": "dd692156-fe6f-4498-a165-df122b33c080",
+              "type": "basic.code",
+              "data": {
+                "code": "// Calcula la dirección en el tablero.\n//\nassign waddr = posy_tab*40 + posx_tab;",
+                "params": [],
+                "ports": {
+                  "in": [
+                    {
+                      "name": "posx_tab",
+                      "range": "[5:0]",
+                      "size": 6
+                    },
+                    {
+                      "name": "posy_tab",
+                      "range": "[5:0]",
+                      "size": 6
+                    }
+                  ],
+                  "out": [
+                    {
+                      "name": "waddr",
+                      "range": "[10:0]",
+                      "size": 11
+                    }
+                  ]
+                }
+              },
+              "position": {
+                "x": 24,
+                "y": 616
+              },
+              "size": {
+                "width": 432,
+                "height": 128
               }
             }
           ],
@@ -885,7 +1077,12 @@
                 "block": "595b462e-c452-4b82-a96f-86c40707ab71",
                 "port": "194dace5-1ed9-45a9-b39e-a5f07ce420ee"
               },
-              "vertices": []
+              "vertices": [
+                {
+                  "x": 736,
+                  "y": 768
+                }
+              ]
             },
             {
               "source": {
@@ -898,8 +1095,8 @@
               },
               "vertices": [
                 {
-                  "x": 224,
-                  "y": 696
+                  "x": 792,
+                  "y": 784
                 }
               ]
             },
@@ -914,8 +1111,8 @@
               },
               "vertices": [
                 {
-                  "x": 264,
-                  "y": 728
+                  "x": 856,
+                  "y": 864
                 }
               ]
             },
@@ -930,8 +1127,8 @@
               },
               "vertices": [
                 {
-                  "x": 312,
-                  "y": 744
+                  "x": 920,
+                  "y": 912
                 }
               ]
             },
@@ -960,7 +1157,12 @@
                 "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
                 "port": "aefa639f-9ee8-42ee-ba38-49b1904abee6"
               },
-              "vertices": [],
+              "vertices": [
+                {
+                  "x": 496,
+                  "y": 448
+                }
+              ],
               "size": 11
             },
             {
@@ -1077,6 +1279,7 @@
                 "block": "01911f6f-829f-4122-920f-339e90d91f96",
                 "port": "RGBStr_i"
               },
+              "vertices": [],
               "size": 26
             },
             {
@@ -1088,6 +1291,12 @@
                 "block": "01911f6f-829f-4122-920f-339e90d91f96",
                 "port": "posx_i"
               },
+              "vertices": [
+                {
+                  "x": 480,
+                  "y": 272
+                }
+              ],
               "size": 10
             },
             {
@@ -1099,7 +1308,79 @@
                 "block": "01911f6f-829f-4122-920f-339e90d91f96",
                 "port": "posy_i"
               },
+              "vertices": [
+                {
+                  "x": 496,
+                  "y": 336
+                }
+              ],
               "size": 10
+            },
+            {
+              "source": {
+                "block": "9e73eae9-1987-4a62-a3fe-a29f0821afd2",
+                "port": "out"
+              },
+              "target": {
+                "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+                "port": "4055315b-3e0a-48d6-a5e2-be538de6f18c"
+              },
+              "size": 4
+            },
+            {
+              "source": {
+                "block": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
+                "port": "out"
+              },
+              "target": {
+                "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+                "port": "6f774fa4-3df9-4d16-9e24-1b564c5317ff"
+              },
+              "vertices": [
+                {
+                  "x": 400,
+                  "y": 552
+                }
+              ]
+            },
+            {
+              "source": {
+                "block": "dd692156-fe6f-4498-a165-df122b33c080",
+                "port": "waddr"
+              },
+              "target": {
+                "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+                "port": "53c0d509-da3a-47f7-bf34-7412eab28d6d"
+              },
+              "vertices": [
+                {
+                  "x": 536,
+                  "y": 632
+                }
+              ],
+              "size": 11
+            },
+            {
+              "source": {
+                "block": "2f92b91f-6ed0-42b5-b619-b6c2aa5b248b",
+                "port": "out"
+              },
+              "target": {
+                "block": "dd692156-fe6f-4498-a165-df122b33c080",
+                "port": "posx_tab"
+              },
+              "size": 6
+            },
+            {
+              "source": {
+                "block": "efcdf2fe-cb72-4e25-a3f7-7231f757a45c",
+                "port": "out"
+              },
+              "target": {
+                "block": "dd692156-fe6f-4498-a165-df122b33c080",
+                "port": "posy_tab"
+              },
+              "size": 6
             }
           ]
         }
