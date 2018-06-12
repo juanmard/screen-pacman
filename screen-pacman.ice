@@ -261,8 +261,8 @@
           }
         },
         {
-          "id": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
-          "type": "305b6096df89837824164e5b07ad38f8a5e30850",
+          "id": "afbc95c7-23a9-402c-b31a-d5d777d28038",
+          "type": "f9678ee4fdd71341fbd1536cc6457be3b922de14",
           "position": {
             "x": 616,
             "y": 296
@@ -395,7 +395,7 @@
             "port": "6e4ac81b-0abc-4441-a529-d2cb74e0a28c"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "42825077-fafc-4e85-ab47-0c3052e53228"
           },
           "vertices": [
@@ -411,7 +411,7 @@
             "port": "10563024-bd0a-4a4d-856c-4bb1dff3f104"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "34ef8db8-afa3-45e5-8f03-2f1db5f06301"
           },
           "vertices": [
@@ -424,7 +424,7 @@
         },
         {
           "source": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "eeb7f72c-5a73-4347-9c78-1a37d276caa2"
           },
           "target": {
@@ -439,7 +439,7 @@
             "port": "out"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "2ee24aa1-c564-4f74-ac6d-e456a4f66517"
           },
           "vertices": [
@@ -455,7 +455,7 @@
             "port": "out"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "f76a17c1-c4db-4043-9c7a-366a28595c47"
           },
           "vertices": [
@@ -471,7 +471,7 @@
             "port": "out"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "baf40555-8a68-4a71-91b2-d04885c48e5d"
           },
           "vertices": [
@@ -487,7 +487,7 @@
             "port": "out"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "3ef73ee7-c09a-438d-b5a9-6cafcac473d0"
           }
         },
@@ -514,7 +514,7 @@
             "port": "1e201ff8-5636-44f0-87aa-f8ee3cee39ad"
           },
           "target": {
-            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+            "block": "afbc95c7-23a9-402c-b31a-d5d777d28038",
             "port": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918"
           }
         }
@@ -1676,7 +1676,7 @@
         }
       }
     },
-    "305b6096df89837824164e5b07ad38f8a5e30850": {
+    "f9678ee4fdd71341fbd1536cc6457be3b922de14": {
       "package": {
         "name": "PxsPacmanGame",
         "version": "1.0",
@@ -1825,7 +1825,7 @@
               "id": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
               "type": "basic.code",
               "data": {
-                "code": "// Output registers.\nreg [3:0] sprite;\nreg [5:0] posx;\nreg [5:0] posy;\n\n// Dinamyc game control properties.\nreg [4:0] contframe;        // Frames counter.\nreg update;                 // Update table game.\n\n// State codes for everyone object.\nparameter   WAIT        = 6'b000001, \n            RMV_PAC     = 6'b000010, \n            RMV_GOHST   = 6'b000100, \n            UPDT_PACMAN = 6'b001000, \n            UPDT_GOHST  = 6'b010000, \n            WAIT_0      = 6'b100000;\n\nreg [5:0] state, next_state;\n\n// Orientation codes.\nparameter   LEFT  = 2'b10, \n            RIGHT = 2'b01, \n            UP    = 2'b11, \n            DOWN  = 2'b00;\n\n// Pacman properties.\nreg [5:0] xpacman;\nreg [5:0] ypacman;\nreg close;\nreg [1:0] orientation;\n\n// Initial properties.\ninitial\nbegin\n    contframe <= 0;\n    update <= 0;\n    state <= WAIT;\n    \n    // Initial Pacman.\n    xpacman <= 6;\n    ypacman <= 6;\n    close <= 0;\n    orientation <= LEFT;\nend\n    \n// 25-frames counter. \nalways @(posedge px_clk)  \nbegin\n    if (rst)\n        contframe <= 0;\n    else\n        if (dyn_clk == 1) \n            contframe <= (contframe == 25) ? 0 : contframe + 1;\nend\n    \n// Update location and pacman state only once every 25 frames \n// (for different refresh frequencies another value could be preferable)\nalways @(posedge contframe[4])  \nbegin\n    xpacman <= xpacman - 1;\n    if (xpacman < 0) xpacman <= 39; \n    close <= ~close;\nend\n\n/* explicit FSM implementation */\nalways @(posedge px_clk)\nif (rst) state = WAIT; else state = next_state;\n\nalways @(*) begin \n    next_state = state;\n    case (state)\n        WAIT:           if (contframe == 25) next_state = RMV_PAC;\n                        else next_state = WAIT;\n        RMV_PAC:        next_state = RMV_GOHST;\n        RMV_GOHST:      next_state = UPDT_PACMAN;\n        UPDT_PACMAN:    next_state = UPDT_GOHST;\n        UPDT_GOHST:     next_state = WAIT_0;\n        WAIT_0:         if (contframe == 0) next_state = WAIT;\n                        else next_state <= WAIT_0;\n    endcase\nend\n\nalways @(state) begin\n    case (state)\n        WAIT:           begin \n                        update = 0; \n                        end\n        \n        RMV_PAC:        begin\n                        update = 1;\n                        posx = xpacman;\n                        posy = ypacman;\n                        sprite = 0;\n                        end\n                        \n        RMV_GOHST:      begin\n                        update = 1;\n                        posx = xpacman - 2; \n                        sprite = 0;\n                        end\n                                                    \n        UPDT_PACMAN:    begin\n                        update = 1;\n                        posx = xpacman - 1;\n                        posy = ypacman;\n                        if (close == 0)\n                            sprite = 3; // open\n                        else\n                            sprite = 2; // close    \n                        end\n                        \n        UPDT_GOHST:     begin\n                        update = 1;\n                        posx = xpacman - 3; \n                        posy = ypacman;\n                        sprite = 1;\n                        end \n\n        WAIT_0:         begin\n                        update = 0;\n                        end\n        \n        default:        begin \n                        update = 0;\n                        end\n    endcase\nend\n",
+                "code": "// Output registers.\nreg [3:0] sprite;\nreg [5:0] posx;\nreg [5:0] posy;\n\n// Dinamyc game control properties.\nreg [4:0] contframe;        // Frames counter.\nreg update;                 // Update table game.\n\n// State codes for everyone object.\nparameter   WAIT        = 6'b000001, \n            RMV_PAC     = 6'b000010, \n            RMV_GOHST   = 6'b000100, \n            UPDT_PACMAN = 6'b001000, \n            UPDT_GOHST  = 6'b010000, \n            WAIT_0      = 6'b100000;\n\nreg [5:0] state, next_state;\n\n// Orientation codes.\nparameter   LEFT  = 2'b10, \n            RIGHT = 2'b01, \n            UP    = 2'b11, \n            DOWN  = 2'b00;\n\n// Pacman properties.\nreg [5:0] xpacman;\nreg [5:0] ypacman;\nreg close;\nreg [1:0] orientation;\n\n// Initial properties.\ninitial\nbegin\n    contframe <= 0;\n    update <= 0;\n    state <= WAIT;\n    \n    // Initial Pacman.\n    xpacman <= 6;\n    ypacman <= 6;\n    close <= 0;\n    orientation <= LEFT;\nend\n    \n// 25-frames counter. \nalways @(posedge px_clk)  \nbegin\n    if (rst)\n        contframe <= 0;\n    else\n        if (dyn_clk == 1) \n            contframe <= (contframe == 25) ? 0 : contframe + 1;\nend\n    \n// Update location and pacman state only once every 25 frames \n// (for different refresh frequencies another value could be preferable)\nalways @(posedge contframe[4])  \nbegin\n    if (left)\n    begin\n        xpacman <= xpacman - 1;\n        orientation <= LEFT;\n    end\n    \n    if (right)\n    begin\n        xpacman <= xpacman + 1;\n        orientation <= RIGHT;\n    end\n    \n    if (xpacman < 0) xpacman <= 39; \n    if (xpacman > 39) xpacman <= 0; \n    close <= ~close;\nend\n\n/* explicit FSM implementation */\nalways @(posedge px_clk)\nif (rst) state = WAIT; else state = next_state;\n\nalways @(*) begin \n    next_state = state;\n    case (state)\n        WAIT:           if (contframe == 25) next_state = RMV_PAC;\n                        else next_state = WAIT;\n        RMV_PAC:        next_state = RMV_GOHST;\n        RMV_GOHST:      next_state = UPDT_PACMAN;\n        UPDT_PACMAN:    next_state = UPDT_GOHST;\n        UPDT_GOHST:     next_state = WAIT_0;\n        WAIT_0:         if (contframe == 0) next_state = WAIT;\n                        else next_state <= WAIT_0;\n    endcase\nend\n\nalways @(state) begin\n    case (state)\n        WAIT:           begin \n                        update = 0; \n                        end\n        \n        RMV_PAC:        begin\n                        update = 1;\n                        posx = xpacman;\n                        posy = ypacman;\n                        sprite = 0;\n                        end\n                        \n        RMV_GOHST:      begin\n                        update = 1;\n                        posx = xpacman - 2; \n                        sprite = 0;\n                        end\n                                                    \n        UPDT_PACMAN:    begin\n                        update = 1;\n                        posx = xpacman - 1;\n                        posy = ypacman;\n                        if (close == 0)\n                            sprite = 3; // open\n                        else\n                            sprite = 2; // close    \n                        end\n                        \n        UPDT_GOHST:     begin\n                        update = 1;\n                        posx = xpacman - 3; \n                        posy = ypacman;\n                        sprite = 1;\n                        end \n\n        WAIT_0:         begin\n                        update = 0;\n                        end\n        \n        default:        begin \n                        update = 0;\n                        end\n    endcase\nend\n",
                 "params": [],
                 "ports": {
                   "in": [
