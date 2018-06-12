@@ -23,15 +23,15 @@ module BmpROM
     parameter BMPFILE = "pacman.list"
 )
 (
-    input  wire clk,            // System clock.
-    input  wire [9:0] add,      // Address in ROM.
-    output reg  [3:0] pixel     // Pixel in address.
+    input  wire clk,             // System clock.
+    input  wire [10:0] add,      // Address in ROM.
+    output reg  [3:0] pixel      // Pixel in address.
 );
 
     // Width and height image. Both power of 2 
     parameter width = 16; 
     parameter height = 16;
-    parameter nsprites = 4;
+    parameter nsprites = 8;
 
     // Memory
     reg  [3:0] bmps [nsprites*width*height-1:0];
