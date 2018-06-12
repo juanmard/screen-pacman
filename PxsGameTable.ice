@@ -394,8 +394,8 @@
             "virtual": true
           },
           "position": {
-            "x": 1472,
-            "y": 576
+            "x": 1920,
+            "y": 592
           }
         },
         {
@@ -488,6 +488,81 @@
           "position": {
             "x": -400,
             "y": 680
+          }
+        },
+        {
+          "id": "4b2c7174-a558-4211-9978-1d8c0f081917",
+          "type": "basic.output",
+          "data": {
+            "name": "read_sprite",
+            "range": "[7:0]",
+            "pins": [
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "3",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "2",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "1",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "0",
+                "name": "",
+                "value": "0"
+              }
+            ],
+            "virtual": true
+          },
+          "position": {
+            "x": 1928,
+            "y": 920
+          }
+        },
+        {
+          "id": "fe552966-fa74-4941-bf35-b52a8fb6f92a",
+          "type": "basic.input",
+          "data": {
+            "name": "get",
+            "pins": [
+              {
+                "index": "0",
+                "name": "",
+                "value": "0"
+              }
+            ],
+            "virtual": true,
+            "clock": false
+          },
+          "position": {
+            "x": -400,
+            "y": 1048
           }
         },
         {
@@ -648,12 +723,86 @@
           "id": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
           "type": "e7653e1ad61a5b05e75e519f7d88ff54987c467d",
           "position": {
-            "x": 1248,
-            "y": 528
+            "x": 1360,
+            "y": 544
           },
           "size": {
             "width": 96,
             "height": 160
+          }
+        },
+        {
+          "id": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+          "type": "basic.code",
+          "data": {
+            "code": "reg [7:0] read_sprite;\n\nalways @(px_clk)\nbegin\n    if (\n    get &&\n    (posx_tab == posx_scr >> 4) &&\n    (posy_tab == posy_scr >> 4))\n    begin\n        read_sprite <= sprite_in;\n    end\nend\n",
+            "params": [],
+            "ports": {
+              "in": [
+                {
+                  "name": "px_clk"
+                },
+                {
+                  "name": "posx_scr",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "posy_scr",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "sprite_in",
+                  "range": "[7:0]",
+                  "size": 8
+                },
+                {
+                  "name": "posx_tab",
+                  "range": "[5:0]",
+                  "size": 6
+                },
+                {
+                  "name": "posy_tab",
+                  "range": "[5:0]",
+                  "size": 6
+                },
+                {
+                  "name": "get"
+                }
+              ],
+              "out": [
+                {
+                  "name": "read_sprite",
+                  "range": "[7:0]",
+                  "size": 8
+                }
+              ]
+            }
+          },
+          "position": {
+            "x": 1296,
+            "y": 792
+          },
+          "size": {
+            "width": 520,
+            "height": 312
+          }
+        },
+        {
+          "id": "9098e5a1-acf5-4bc1-99f4-35eec64a7718",
+          "type": "basic.info",
+          "data": {
+            "info": "PAra saber el sprite en una posición del tablero, activamos get y\nesperamos al final del endframe para leer el sprite.",
+            "readonly": true
+          },
+          "position": {
+            "x": 1288,
+            "y": 1136
+          },
+          "size": {
+            "width": 560,
+            "height": 64
           }
         }
       ],
@@ -669,8 +818,8 @@
           },
           "vertices": [
             {
-              "x": 1192,
-              "y": 112
+              "x": 1240,
+              "y": 432
             }
           ]
         },
@@ -751,7 +900,7 @@
           "vertices": [
             {
               "x": 1048,
-              "y": 520
+              "y": 536
             }
           ],
           "size": 10
@@ -768,7 +917,7 @@
           "vertices": [
             {
               "x": 1080,
-              "y": 456
+              "y": 472
             }
           ],
           "size": 10
@@ -784,8 +933,8 @@
           },
           "vertices": [
             {
-              "x": 1112,
-              "y": 480
+              "x": 1128,
+              "y": 488
             }
           ],
           "size": 26
@@ -930,10 +1079,132 @@
           "vertices": [
             {
               "x": 1016,
-              "y": 584
+              "y": 592
             }
           ],
           "size": 8
+        },
+        {
+          "source": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "read_sprite"
+          },
+          "target": {
+            "block": "4b2c7174-a558-4211-9978-1d8c0f081917",
+            "port": "in"
+          },
+          "size": 8
+        },
+        {
+          "source": {
+            "block": "01911f6f-829f-4122-920f-339e90d91f96",
+            "port": "posy_o"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "posy_scr"
+          },
+          "vertices": [
+            {
+              "x": 1048,
+              "y": 760
+            }
+          ],
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "01911f6f-829f-4122-920f-339e90d91f96",
+            "port": "posx_o"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "posx_scr"
+          },
+          "vertices": [
+            {
+              "x": 1080,
+              "y": 728
+            }
+          ],
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
+            "port": "459c4732-a880-499f-9015-4bcef96a18fa"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "sprite_in"
+          },
+          "vertices": [
+            {
+              "x": 1016,
+              "y": 744
+            }
+          ],
+          "size": 8
+        },
+        {
+          "source": {
+            "block": "42825077-fafc-4e85-ab47-0c3052e53228",
+            "port": "out"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "px_clk"
+          },
+          "vertices": [
+            {
+              "x": 1240,
+              "y": 512
+            }
+          ]
+        },
+        {
+          "source": {
+            "block": "2f92b91f-6ed0-42b5-b619-b6c2aa5b248b",
+            "port": "out"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "posx_tab"
+          },
+          "vertices": [
+            {
+              "x": -104,
+              "y": 800
+            }
+          ],
+          "size": 6
+        },
+        {
+          "source": {
+            "block": "efcdf2fe-cb72-4e25-a3f7-7231f757a45c",
+            "port": "out"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "posy_tab"
+          },
+          "vertices": [
+            {
+              "x": -160,
+              "y": 808
+            }
+          ],
+          "size": 6
+        },
+        {
+          "source": {
+            "block": "fe552966-fa74-4941-bf35-b52a8fb6f92a",
+            "port": "out"
+          },
+          "target": {
+            "block": "2bd6b3e8-7e74-445f-8e9a-f1e60603a5b1",
+            "port": "get"
+          }
         }
       ]
     }
