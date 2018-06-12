@@ -261,8 +261,8 @@
           }
         },
         {
-          "id": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
-          "type": "2e01c12e846fba10c095941b7690407f43acb9dd",
+          "id": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
+          "type": "305b6096df89837824164e5b07ad38f8a5e30850",
           "position": {
             "x": 616,
             "y": 296
@@ -395,7 +395,7 @@
             "port": "6e4ac81b-0abc-4441-a529-d2cb74e0a28c"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "42825077-fafc-4e85-ab47-0c3052e53228"
           },
           "vertices": [
@@ -411,7 +411,7 @@
             "port": "10563024-bd0a-4a4d-856c-4bb1dff3f104"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "34ef8db8-afa3-45e5-8f03-2f1db5f06301"
           },
           "vertices": [
@@ -424,7 +424,7 @@
         },
         {
           "source": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "eeb7f72c-5a73-4347-9c78-1a37d276caa2"
           },
           "target": {
@@ -439,7 +439,7 @@
             "port": "out"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "2ee24aa1-c564-4f74-ac6d-e456a4f66517"
           },
           "vertices": [
@@ -455,7 +455,7 @@
             "port": "out"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "f76a17c1-c4db-4043-9c7a-366a28595c47"
           },
           "vertices": [
@@ -471,7 +471,7 @@
             "port": "out"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "baf40555-8a68-4a71-91b2-d04885c48e5d"
           },
           "vertices": [
@@ -487,7 +487,7 @@
             "port": "out"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "3ef73ee7-c09a-438d-b5a9-6cafcac473d0"
           }
         },
@@ -514,7 +514,7 @@
             "port": "1e201ff8-5636-44f0-87aa-f8ee3cee39ad"
           },
           "target": {
-            "block": "16218a27-822a-4620-8f68-0c3fd3ca9bd0",
+            "block": "3b5a2d75-8a0c-4cd9-9a32-1582a2c1a93a",
             "port": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918"
           }
         }
@@ -1676,7 +1676,7 @@
         }
       }
     },
-    "2e01c12e846fba10c095941b7690407f43acb9dd": {
+    "305b6096df89837824164e5b07ad38f8a5e30850": {
       "package": {
         "name": "PxsPacmanGame",
         "version": "1.0",
@@ -1714,18 +1714,6 @@
               }
             },
             {
-              "id": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
-              "type": "basic.input",
-              "data": {
-                "name": "dyn_clk",
-                "clock": false
-              },
-              "position": {
-                "x": -400,
-                "y": 176
-              }
-            },
-            {
               "id": "eeb7f72c-5a73-4347-9c78-1a37d276caa2",
               "type": "basic.output",
               "data": {
@@ -1734,8 +1722,31 @@
                 "size": 26
               },
               "position": {
-                "x": 824,
-                "y": 240
+                "x": 1296,
+                "y": 208
+              }
+            },
+            {
+              "id": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
+              "type": "basic.input",
+              "data": {
+                "name": "dyn_clk",
+                "clock": false
+              },
+              "position": {
+                "x": -368,
+                "y": 288
+              }
+            },
+            {
+              "id": "06d3dec4-c2d9-4b12-8516-a989809d16e8",
+              "type": "basic.output",
+              "data": {
+                "name": "sound"
+              },
+              "position": {
+                "x": 1296,
+                "y": 328
               }
             },
             {
@@ -1746,19 +1757,8 @@
                 "clock": false
               },
               "position": {
-                "x": -400,
-                "y": 240
-              }
-            },
-            {
-              "id": "06d3dec4-c2d9-4b12-8516-a989809d16e8",
-              "type": "basic.output",
-              "data": {
-                "name": "sound"
-              },
-              "position": {
-                "x": 824,
-                "y": 360
+                "x": -368,
+                "y": 384
               }
             },
             {
@@ -1769,8 +1769,8 @@
                 "clock": false
               },
               "position": {
-                "x": -400,
-                "y": 472
+                "x": -408,
+                "y": 712
               }
             },
             {
@@ -1781,8 +1781,8 @@
                 "clock": false
               },
               "position": {
-                "x": -400,
-                "y": 536
+                "x": -408,
+                "y": 776
               }
             },
             {
@@ -1793,8 +1793,8 @@
                 "clock": false
               },
               "position": {
-                "x": -400,
-                "y": 608
+                "x": -408,
+                "y": 848
               }
             },
             {
@@ -1805,16 +1805,16 @@
                 "clock": false
               },
               "position": {
-                "x": -400,
-                "y": 672
+                "x": -408,
+                "y": 912
               }
             },
             {
               "id": "6c04018b-33ca-4635-b74d-0d28dfd3211f",
               "type": "13a3b418aadac7285c344110d835bf902ffd2985",
               "position": {
-                "x": 520,
-                "y": 112
+                "x": 992,
+                "y": 80
               },
               "size": {
                 "width": 96,
@@ -1825,12 +1825,18 @@
               "id": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
               "type": "basic.code",
               "data": {
-                "code": "reg [3:0] sprite;\nreg [5:0] posx = 10;\nreg [5:0] posy = 10;\nreg update;\n\nalways @(posedge dyn_clk)\nbegin\n    update <= ~update;\n    sprite <= 7;\n\n    // Movimientos.\n    if (left)\n        posx <= posx + 1;\n    if (right)\n        posx <= posx - 1;\n\n    // Límites.\n    if (posx < 0)\n        posx <= 0;\n    if (posx > 39)\n        posx <= 39;\nend",
+                "code": "// Output registers.\nreg [3:0] sprite;\nreg [5:0] posx;\nreg [5:0] posy;\n\n// Dinamyc game control properties.\nreg [4:0] contframe;        // Frames counter.\nreg update;                 // Update table game.\n\n// State codes for everyone object.\nparameter   WAIT        = 6'b000001, \n            RMV_PAC     = 6'b000010, \n            RMV_GOHST   = 6'b000100, \n            UPDT_PACMAN = 6'b001000, \n            UPDT_GOHST  = 6'b010000, \n            WAIT_0      = 6'b100000;\n\nreg [5:0] state, next_state;\n\n// Orientation codes.\nparameter   LEFT  = 2'b10, \n            RIGHT = 2'b01, \n            UP    = 2'b11, \n            DOWN  = 2'b00;\n\n// Pacman properties.\nreg [5:0] xpacman;\nreg [5:0] ypacman;\nreg close;\nreg [1:0] orientation;\n\n// Initial properties.\ninitial\nbegin\n    contframe <= 0;\n    update <= 0;\n    state <= WAIT;\n    \n    // Initial Pacman.\n    xpacman <= 6;\n    ypacman <= 6;\n    close <= 0;\n    orientation <= LEFT;\nend\n    \n// 25-frames counter. \nalways @(posedge px_clk)  \nbegin\n    if (rst)\n        contframe <= 0;\n    else\n        if (dyn_clk == 1) \n            contframe <= (contframe == 25) ? 0 : contframe + 1;\nend\n    \n// Update location and pacman state only once every 25 frames \n// (for different refresh frequencies another value could be preferable)\nalways @(posedge contframe[4])  \nbegin\n    xpacman <= xpacman - 1;\n    if (xpacman < 0) xpacman <= 39; \n    close <= ~close;\nend\n\n/* explicit FSM implementation */\nalways @(posedge px_clk)\nif (rst) state = WAIT; else state = next_state;\n\nalways @(*) begin \n    next_state = state;\n    case (state)\n        WAIT:           if (contframe == 25) next_state = RMV_PAC;\n                        else next_state = WAIT;\n        RMV_PAC:        next_state = RMV_GOHST;\n        RMV_GOHST:      next_state = UPDT_PACMAN;\n        UPDT_PACMAN:    next_state = UPDT_GOHST;\n        UPDT_GOHST:     next_state = WAIT_0;\n        WAIT_0:         if (contframe == 0) next_state = WAIT;\n                        else next_state <= WAIT_0;\n    endcase\nend\n\nalways @(state) begin\n    case (state)\n        WAIT:           begin \n                        update = 0; \n                        end\n        \n        RMV_PAC:        begin\n                        update = 1;\n                        posx = xpacman;\n                        posy = ypacman;\n                        sprite = 0;\n                        end\n                        \n        RMV_GOHST:      begin\n                        update = 1;\n                        posx = xpacman - 2; \n                        sprite = 0;\n                        end\n                                                    \n        UPDT_PACMAN:    begin\n                        update = 1;\n                        posx = xpacman - 1;\n                        posy = ypacman;\n                        if (close == 0)\n                            sprite = 3; // open\n                        else\n                            sprite = 2; // close    \n                        end\n                        \n        UPDT_GOHST:     begin\n                        update = 1;\n                        posx = xpacman - 3; \n                        posy = ypacman;\n                        sprite = 1;\n                        end \n\n        WAIT_0:         begin\n                        update = 0;\n                        end\n        \n        default:        begin \n                        update = 0;\n                        end\n    endcase\nend\n",
                 "params": [],
                 "ports": {
                   "in": [
                     {
+                      "name": "px_clk"
+                    },
+                    {
                       "name": "dyn_clk"
+                    },
+                    {
+                      "name": "rst"
                     },
                     {
                       "name": "left"
@@ -1866,8 +1872,8 @@
                 "y": 184
               },
               "size": {
-                "width": 320,
-                "height": 248
+                "width": 840,
+                "height": 464
               }
             }
           ],
@@ -1904,8 +1910,8 @@
               },
               "vertices": [
                 {
-                  "x": 376,
-                  "y": 440
+                  "x": 840,
+                  "y": 648
                 }
               ]
             },
@@ -1920,8 +1926,8 @@
               },
               "vertices": [
                 {
-                  "x": 408,
-                  "y": 488
+                  "x": 872,
+                  "y": 696
                 }
               ]
             },
@@ -1936,8 +1942,8 @@
               },
               "vertices": [
                 {
-                  "x": 440,
-                  "y": 528
+                  "x": 904,
+                  "y": 736
                 }
               ]
             },
@@ -1952,8 +1958,8 @@
               },
               "vertices": [
                 {
-                  "x": 472,
-                  "y": 552
+                  "x": 936,
+                  "y": 760
                 }
               ]
             },
@@ -1989,8 +1995,8 @@
               },
               "vertices": [
                 {
-                  "x": 288,
-                  "y": 256
+                  "x": 760,
+                  "y": 224
                 }
               ]
             },
@@ -2005,8 +2011,8 @@
               },
               "vertices": [
                 {
-                  "x": 272,
-                  "y": 208
+                  "x": 744,
+                  "y": 176
                 }
               ],
               "size": 4
@@ -2022,8 +2028,8 @@
               },
               "vertices": [
                 {
-                  "x": 320,
-                  "y": 288
+                  "x": 792,
+                  "y": 256
                 }
               ],
               "size": 6
@@ -2039,8 +2045,8 @@
               },
               "vertices": [
                 {
-                  "x": 352,
-                  "y": 328
+                  "x": 824,
+                  "y": 296
                 }
               ],
               "size": 6
@@ -2063,6 +2069,26 @@
               "target": {
                 "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
                 "port": "right"
+              }
+            },
+            {
+              "source": {
+                "block": "42825077-fafc-4e85-ab47-0c3052e53228",
+                "port": "out"
+              },
+              "target": {
+                "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+                "port": "px_clk"
+              }
+            },
+            {
+              "source": {
+                "block": "18abcc78-0220-49c7-9c06-bd99bfb271d8",
+                "port": "out"
+              },
+              "target": {
+                "block": "e4f2e6e1-8877-47fa-a3ea-25717c73d566",
+                "port": "rst"
               }
             }
           ]
