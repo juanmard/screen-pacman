@@ -172,8 +172,8 @@
             "virtual": true
           },
           "position": {
-            "x": 1808,
-            "y": 16
+            "x": 1976,
+            "y": 72
           }
         },
         {
@@ -323,6 +323,138 @@
           }
         },
         {
+          "id": "2a3a712b-f811-4d1f-800c-8bdffc0f012a",
+          "type": "basic.input",
+          "data": {
+            "name": "posx",
+            "range": "[9:0]",
+            "pins": [
+              {
+                "index": "9",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "8",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "3",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "2",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "1",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "0",
+                "name": "",
+                "value": "0"
+              }
+            ],
+            "virtual": true,
+            "clock": false
+          },
+          "position": {
+            "x": -200,
+            "y": 280
+          }
+        },
+        {
+          "id": "35fb9102-3e67-4c7c-9a31-b4723e05d5bc",
+          "type": "basic.input",
+          "data": {
+            "name": "posy",
+            "range": "[9:0]",
+            "pins": [
+              {
+                "index": "9",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "8",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "3",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "2",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "1",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "0",
+                "name": "",
+                "value": "0"
+              }
+            ],
+            "virtual": true,
+            "clock": false
+          },
+          "position": {
+            "x": -200,
+            "y": 344
+          }
+        },
+        {
           "id": "d8a47dba-3e2f-450c-adcd-1163bfeb060b",
           "type": "basic.input",
           "data": {
@@ -349,8 +481,8 @@
             "clock": false
           },
           "position": {
-            "x": -192,
-            "y": 328
+            "x": -200,
+            "y": 400
           }
         },
         {
@@ -369,8 +501,8 @@
             "clock": false
           },
           "position": {
-            "x": -192,
-            "y": 400
+            "x": -200,
+            "y": 472
           }
         },
         {
@@ -389,8 +521,8 @@
             "clock": false
           },
           "position": {
-            "x": -192,
-            "y": 480
+            "x": -200,
+            "y": 552
           }
         },
         {
@@ -409,8 +541,8 @@
             "clock": false
           },
           "position": {
-            "x": -192,
-            "y": 560
+            "x": -200,
+            "y": 632
           }
         },
         {
@@ -429,15 +561,27 @@
             "clock": false
           },
           "position": {
-            "x": -192,
-            "y": 640
+            "x": -200,
+            "y": 712
+          }
+        },
+        {
+          "id": "68852783-b999-43a1-8d63-a88fdee4b265",
+          "type": "ee8fec16d2fff56668fc4eda6a17d2dbf1878372",
+          "position": {
+            "x": 952,
+            "y": 0
+          },
+          "size": {
+            "width": 96,
+            "height": 64
           }
         },
         {
           "id": "4aefd809-340f-4adb-a379-ea494ea714f1",
           "type": "basic.code",
           "data": {
-            "code": "`define RGB 25:23\t\t// Pixel RGB (1:1:1)\n`define Active 0:0 \t\t// ActiveVideo\n`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [25:0] RGBStr_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    \n    if (RGBStr_i[`Active])\n    begin\n        RGBStr_o[`RGB] <= pixel[2:0];\n    end\nend",
+            "code": "`define RGB 25:23\t\t// Pixel RGB (1:1:1)\n`define Active 0:0 \t\t// ActiveVideo\n`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nlocalparam sprw = 16;\nlocalparam sprh = 16;\n\nreg [25:0] RGBStr_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    if (\n        (RGBStr_i[`Active]) &&\n        (RGBStr_i[`XC] >= posx) && (RGBStr_i[`XC] < posx + sprw) &&\n        (RGBStr_i[`YC] >= posy) && (RGBStr_i[`YC] < posy + sprh)\n        )\n    begin\n        RGBStr_o[`RGB] <= pixel[2:0];\n    end\nend",
             "params": [],
             "ports": {
               "in": [
@@ -453,6 +597,16 @@
                   "name": "RGBStr_i",
                   "range": "[25:0]",
                   "size": 26
+                },
+                {
+                  "name": "posx",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "posy",
+                  "range": "[9:0]",
+                  "size": 10
                 }
               ],
               "out": [
@@ -466,30 +620,18 @@
           },
           "position": {
             "x": 1200,
-            "y": -48
+            "y": -80
           },
           "size": {
-            "width": 488,
-            "height": 184
-          }
-        },
-        {
-          "id": "68852783-b999-43a1-8d63-a88fdee4b265",
-          "type": "ee8fec16d2fff56668fc4eda6a17d2dbf1878372",
-          "position": {
-            "x": 920,
-            "y": 16
-          },
-          "size": {
-            "width": 96,
-            "height": 64
+            "width": 656,
+            "height": 368
           }
         },
         {
           "id": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
           "type": "basic.code",
           "data": {
-            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n\n    addr <= {sprite, RGBStr_i[6:3], RGBStr_i[16:13]};\n    if (left)\n        addr <= {sprite, RGBStr_i[6:3],~RGBStr_i[16:13]};\n    if (right)\n        addr <= {sprite, ~RGBStr_i[6:3],RGBStr_i[16:13]};\n    if (up)\n        addr <= {sprite, RGBStr_i[16:13],~RGBStr_i[6:3]};\n    if (down)\n        addr <= {sprite, ~RGBStr_i[16:13],RGBStr_i[6:3]};\nend",
+            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    addr <= {sprite, RGBStr_i[6:3], RGBStr_i[16:13]};\n    if (left)\n        addr <= {sprite, RGBStr_i[6:3],~RGBStr_i[16:13]};\n    if (right)\n        addr <= {sprite, ~RGBStr_i[6:3],RGBStr_i[16:13]};\n    if (up)\n        addr <= {sprite, RGBStr_i[16:13],~RGBStr_i[6:3]};\n    if (down)\n        addr <= {sprite, ~RGBStr_i[16:13],RGBStr_i[6:3]};\nend",
             "params": [],
             "ports": {
               "in": [
@@ -500,6 +642,16 @@
                   "name": "RGBStr_i",
                   "range": "[25:0]",
                   "size": 26
+                },
+                {
+                  "name": "posx_i",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "posy_i",
+                  "range": "[9:0]",
+                  "size": 10
                 },
                 {
                   "name": "sprite",
@@ -529,6 +681,16 @@
                   "name": "RGBStr_o",
                   "range": "[25:0]",
                   "size": 26
+                },
+                {
+                  "name": "posx_o",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "posy_o",
+                  "range": "[9:0]",
+                  "size": 10
                 }
               ]
             }
@@ -539,7 +701,7 @@
           },
           "size": {
             "width": 712,
-            "height": 472
+            "height": 496
           }
         }
       ],
@@ -710,6 +872,62 @@
             "port": "sprite"
           },
           "size": 3
+        },
+        {
+          "source": {
+            "block": "2a3a712b-f811-4d1f-800c-8bdffc0f012a",
+            "port": "out"
+          },
+          "target": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "posx_i"
+          },
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "35fb9102-3e67-4c7c-9a31-b4723e05d5bc",
+            "port": "out"
+          },
+          "target": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "posy_i"
+          },
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "posx_o"
+          },
+          "target": {
+            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
+            "port": "posx"
+          },
+          "vertices": [
+            {
+              "x": 1080,
+              "y": 320
+            }
+          ],
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "posy_o"
+          },
+          "target": {
+            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
+            "port": "posy"
+          },
+          "vertices": [
+            {
+              "x": 1128,
+              "y": 408
+            }
+          ],
+          "size": 10
         }
       ]
     }
