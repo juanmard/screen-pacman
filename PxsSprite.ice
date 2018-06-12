@@ -455,12 +455,17 @@
           }
         },
         {
-          "id": "d8a47dba-3e2f-450c-adcd-1163bfeb060b",
+          "id": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe",
           "type": "basic.input",
           "data": {
             "name": "sprite",
-            "range": "[2:0]",
+            "range": "[3:0]",
             "pins": [
+              {
+                "index": "3",
+                "name": "",
+                "value": "0"
+              },
               {
                 "index": "2",
                 "name": "",
@@ -482,7 +487,7 @@
           },
           "position": {
             "x": -200,
-            "y": 400
+            "y": 408
           }
         },
         {
@@ -631,7 +636,7 @@
           "id": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
           "type": "basic.code",
           "data": {
-            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    addr <= {sprite, RGBStr_i[6:3], RGBStr_i[16:13]};\n    if (left)\n        addr <= {sprite, RGBStr_i[6:3],~RGBStr_i[16:13]};\n    if (right)\n        addr <= {sprite, ~RGBStr_i[6:3],RGBStr_i[16:13]};\n    if (up)\n        addr <= {sprite, RGBStr_i[16:13],~RGBStr_i[6:3]};\n    if (down)\n        addr <= {sprite, ~RGBStr_i[16:13],RGBStr_i[6:3]};\nend",
+            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n    if (left)\n        addr <= {sprite[2:0], RGBStr_i[6:3],~RGBStr_i[16:13]};\n    if (right)\n        addr <= {sprite[2:0], ~RGBStr_i[6:3],RGBStr_i[16:13]};\n    if (up)\n        addr <= {sprite[2:0], RGBStr_i[16:13],~RGBStr_i[6:3]};\n    if (down)\n        addr <= {sprite[2:0], ~RGBStr_i[16:13],RGBStr_i[6:3]};\nend",
             "params": [],
             "ports": {
               "in": [
@@ -655,8 +660,8 @@
                 },
                 {
                   "name": "sprite",
-                  "range": "[2:0]",
-                  "size": 3
+                  "range": "[3:0]",
+                  "size": 4
                 },
                 {
                   "name": "left"
@@ -864,17 +869,6 @@
         },
         {
           "source": {
-            "block": "d8a47dba-3e2f-450c-adcd-1163bfeb060b",
-            "port": "out"
-          },
-          "target": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "sprite"
-          },
-          "size": 3
-        },
-        {
-          "source": {
             "block": "2a3a712b-f811-4d1f-800c-8bdffc0f012a",
             "port": "out"
           },
@@ -928,6 +922,17 @@
             }
           ],
           "size": 10
+        },
+        {
+          "source": {
+            "block": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe",
+            "port": "out"
+          },
+          "target": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "sprite"
+          },
+          "size": 4
         }
       ]
     }
