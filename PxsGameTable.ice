@@ -178,12 +178,32 @@
           }
         },
         {
-          "id": "9e73eae9-1987-4a62-a3fe-a29f0821afd2",
+          "id": "25b2a52f-f862-452d-af13-b16b13159d43",
           "type": "basic.input",
           "data": {
             "name": "sprite_i",
-            "range": "[3:0]",
+            "range": "[7:0]",
             "pins": [
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
               {
                 "index": "3",
                 "name": "",
@@ -471,86 +491,6 @@
           }
         },
         {
-          "id": "2ee24aa1-c564-4f74-ac6d-e456a4f66517",
-          "type": "basic.input",
-          "data": {
-            "name": "left",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -400,
-            "y": 792
-          }
-        },
-        {
-          "id": "f76a17c1-c4db-4043-9c7a-366a28595c47",
-          "type": "basic.input",
-          "data": {
-            "name": "right",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -400,
-            "y": 856
-          }
-        },
-        {
-          "id": "baf40555-8a68-4a71-91b2-d04885c48e5d",
-          "type": "basic.input",
-          "data": {
-            "name": "up",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -400,
-            "y": 928
-          }
-        },
-        {
-          "id": "3ef73ee7-c09a-438d-b5a9-6cafcac473d0",
-          "type": "basic.input",
-          "data": {
-            "name": "down",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -400,
-            "y": 992
-          }
-        },
-        {
           "id": "01911f6f-829f-4122-920f-339e90d91f96",
           "type": "basic.code",
           "data": {
@@ -656,30 +596,6 @@
           }
         },
         {
-          "id": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
-          "type": "ddaab1cd797a69d97baf783a98cb87b8a0d48d22",
-          "position": {
-            "x": 688,
-            "y": 440
-          },
-          "size": {
-            "width": 96,
-            "height": 160
-          }
-        },
-        {
-          "id": "595b462e-c452-4b82-a96f-86c40707ab71",
-          "type": "d129169ac60bb5127b5c66892912cd26d702abfb",
-          "position": {
-            "x": 1248,
-            "y": 464
-          },
-          "size": {
-            "width": 96,
-            "height": 288
-          }
-        },
-        {
           "id": "dd692156-fe6f-4498-a165-df122b33c080",
           "type": "basic.code",
           "data": {
@@ -715,6 +631,30 @@
             "width": 432,
             "height": 128
           }
+        },
+        {
+          "id": "27c16a12-5f2e-4ffc-950f-357dc413f763",
+          "type": "ff2ebfe392317114ad55b3ed15989a36e3f7109b",
+          "position": {
+            "x": 688,
+            "y": 440
+          },
+          "size": {
+            "width": 96,
+            "height": 160
+          }
+        },
+        {
+          "id": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
+          "type": "e7653e1ad61a5b05e75e519f7d88ff54987c467d",
+          "position": {
+            "x": 1248,
+            "y": 528
+          },
+          "size": {
+            "width": 96,
+            "height": 160
+          }
         }
       ],
       "wires": [
@@ -724,7 +664,7 @@
             "port": "out"
           },
           "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
+            "block": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
             "port": "42825077-fafc-4e85-ab47-0c3052e53228"
           },
           "vertices": [
@@ -736,7 +676,7 @@
         },
         {
           "source": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
+            "block": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
             "port": "eeb7f72c-5a73-4347-9c78-1a37d276caa2"
           },
           "target": {
@@ -747,75 +687,11 @@
         },
         {
           "source": {
-            "block": "2ee24aa1-c564-4f74-ac6d-e456a4f66517",
-            "port": "out"
-          },
-          "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
-            "port": "194dace5-1ed9-45a9-b39e-a5f07ce420ee"
-          },
-          "vertices": [
-            {
-              "x": 736,
-              "y": 768
-            }
-          ]
-        },
-        {
-          "source": {
-            "block": "f76a17c1-c4db-4043-9c7a-366a28595c47",
-            "port": "out"
-          },
-          "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
-            "port": "4c3eb622-287d-4242-9e6c-61471b6dfd47"
-          },
-          "vertices": [
-            {
-              "x": 792,
-              "y": 784
-            }
-          ]
-        },
-        {
-          "source": {
-            "block": "baf40555-8a68-4a71-91b2-d04885c48e5d",
-            "port": "out"
-          },
-          "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
-            "port": "f8b0c591-e860-468b-83b6-117034220aa1"
-          },
-          "vertices": [
-            {
-              "x": 856,
-              "y": 864
-            }
-          ]
-        },
-        {
-          "source": {
-            "block": "3ef73ee7-c09a-438d-b5a9-6cafcac473d0",
-            "port": "out"
-          },
-          "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
-            "port": "98c27138-80f4-4125-8fac-5bd35bc7d645"
-          },
-          "vertices": [
-            {
-              "x": 920,
-              "y": 912
-            }
-          ]
-        },
-        {
-          "source": {
             "block": "42825077-fafc-4e85-ab47-0c3052e53228",
             "port": "out"
           },
           "target": {
-            "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
             "port": "61ffa0c6-bde7-46b4-9955-7fe1b26e45b3"
           },
           "vertices": [
@@ -831,7 +707,7 @@
             "port": "raddr"
           },
           "target": {
-            "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
             "port": "aefa639f-9ee8-42ee-ba38-49b1904abee6"
           },
           "vertices": [
@@ -865,28 +741,11 @@
         },
         {
           "source": {
-            "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
-            "port": "4cb68ed7-785f-48a7-b9db-31209423c5a6"
-          },
-          "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
-            "port": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe"
-          },
-          "vertices": [
-            {
-              "x": 1016,
-              "y": 576
-            }
-          ],
-          "size": 4
-        },
-        {
-          "source": {
             "block": "01911f6f-829f-4122-920f-339e90d91f96",
             "port": "posy_o"
           },
           "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
+            "block": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
             "port": "35fb9102-3e67-4c7c-9a31-b4723e05d5bc"
           },
           "vertices": [
@@ -903,7 +762,7 @@
             "port": "posx_o"
           },
           "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
+            "block": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
             "port": "2a3a712b-f811-4d1f-800c-8bdffc0f012a"
           },
           "vertices": [
@@ -920,7 +779,7 @@
             "port": "RGBStr_o"
           },
           "target": {
-            "block": "595b462e-c452-4b82-a96f-86c40707ab71",
+            "block": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
             "port": "34ef8db8-afa3-45e5-8f03-2f1db5f06301"
           },
           "vertices": [
@@ -995,22 +854,11 @@
         },
         {
           "source": {
-            "block": "9e73eae9-1987-4a62-a3fe-a29f0821afd2",
-            "port": "out"
-          },
-          "target": {
-            "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
-            "port": "4055315b-3e0a-48d6-a5e2-be538de6f18c"
-          },
-          "size": 4
-        },
-        {
-          "source": {
             "block": "c23965e7-ac63-4cf5-97d1-1ca31e0aa918",
             "port": "out"
           },
           "target": {
-            "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
             "port": "6f774fa4-3df9-4d16-9e24-1b564c5317ff"
           },
           "vertices": [
@@ -1026,7 +874,7 @@
             "port": "waddr"
           },
           "target": {
-            "block": "53167787-9de1-45f0-bbf6-8c280c8e87d1",
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
             "port": "53c0d509-da3a-47f7-bf34-7412eab28d6d"
           },
           "vertices": [
@@ -1058,12 +906,40 @@
             "port": "posy_tab"
           },
           "size": 6
+        },
+        {
+          "source": {
+            "block": "25b2a52f-f862-452d-af13-b16b13159d43",
+            "port": "out"
+          },
+          "target": {
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
+            "port": "fabee3b6-1818-4dba-8712-432250ae5377"
+          },
+          "size": 8
+        },
+        {
+          "source": {
+            "block": "27c16a12-5f2e-4ffc-950f-357dc413f763",
+            "port": "459c4732-a880-499f-9015-4bcef96a18fa"
+          },
+          "target": {
+            "block": "9803f53c-b03c-4cdb-8a41-31506e5adf72",
+            "port": "7a511261-4dfc-4d84-b0ac-745a854813d3"
+          },
+          "vertices": [
+            {
+              "x": 1016,
+              "y": 584
+            }
+          ],
+          "size": 8
         }
       ]
     }
   },
   "dependencies": {
-    "ddaab1cd797a69d97baf783a98cb87b8a0d48d22": {
+    "ff2ebfe392317114ad55b3ed15989a36e3f7109b": {
       "package": {
         "name": "TableRAM",
         "version": "1.0",
@@ -1101,13 +977,13 @@
               }
             },
             {
-              "id": "4055315b-3e0a-48d6-a5e2-be538de6f18c",
+              "id": "fabee3b6-1818-4dba-8712-432250ae5377",
               "type": "basic.input",
               "data": {
                 "name": "din",
-                "range": "[3:0]",
+                "range": "[7:0]",
                 "clock": false,
-                "size": 4
+                "size": 8
               },
               "position": {
                 "x": 24,
@@ -1115,12 +991,12 @@
               }
             },
             {
-              "id": "4cb68ed7-785f-48a7-b9db-31209423c5a6",
+              "id": "459c4732-a880-499f-9015-4bcef96a18fa",
               "type": "basic.output",
               "data": {
                 "name": "dout",
-                "range": "[3:0]",
-                "size": 4
+                "range": "[7:0]",
+                "size": 8
               },
               "position": {
                 "x": 784,
@@ -1170,12 +1046,12 @@
               "id": "00755dad-0c04-4e28-a670-755c47a0633c",
               "type": "basic.info",
               "data": {
-                "info": "Double port RAM for storing a \ngame table of 30*40 cells of 4b.\nEvery cell points to a different\nbmp image stored in a BmpROM\n",
+                "info": "Double port RAM for storing a \ngame table of 30*40 cells of 8b.\nEvery cell points to a different\nsprite image stored in a \"SpriteROM\"\nwith its orientation.\n",
                 "readonly": true
               },
               "position": {
                 "x": 552,
-                "y": -8
+                "y": 16
               },
               "size": {
                 "width": 408,
@@ -1204,8 +1080,8 @@
                     },
                     {
                       "name": "din",
-                      "range": "[3:0]",
-                      "size": 4
+                      "range": "[7:0]",
+                      "size": 8
                     },
                     {
                       "name": "write_en"
@@ -1219,8 +1095,8 @@
                   "out": [
                     {
                       "name": "dout",
-                      "range": "[3:0]",
-                      "size": 4
+                      "range": "[7:0]",
+                      "size": 8
                     }
                   ]
                 }
@@ -1245,17 +1121,6 @@
                 "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
                 "port": "px_clk"
               }
-            },
-            {
-              "source": {
-                "block": "4055315b-3e0a-48d6-a5e2-be538de6f18c",
-                "port": "out"
-              },
-              "target": {
-                "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
-                "port": "din"
-              },
-              "size": 4
             },
             {
               "source": {
@@ -1291,17 +1156,6 @@
             },
             {
               "source": {
-                "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
-                "port": "dout"
-              },
-              "target": {
-                "block": "4cb68ed7-785f-48a7-b9db-31209423c5a6",
-                "port": "in"
-              },
-              "size": 4
-            },
-            {
-              "source": {
                 "block": "869cdf80-d1c6-43f9-b27a-a2297e7de303",
                 "port": "constant-out"
               },
@@ -1309,12 +1163,34 @@
                 "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
                 "port": "TABFILE"
               }
+            },
+            {
+              "source": {
+                "block": "fabee3b6-1818-4dba-8712-432250ae5377",
+                "port": "out"
+              },
+              "target": {
+                "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
+                "port": "din"
+              },
+              "size": 8
+            },
+            {
+              "source": {
+                "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
+                "port": "dout"
+              },
+              "target": {
+                "block": "459c4732-a880-499f-9015-4bcef96a18fa",
+                "port": "in"
+              },
+              "size": 8
             }
           ]
         }
       }
     },
-    "d129169ac60bb5127b5c66892912cd26d702abfb": {
+    "e7653e1ad61a5b05e75e519f7d88ff54987c467d": {
       "package": {
         "name": "PxsSprite",
         "version": "1.0",
@@ -1375,7 +1251,7 @@
               },
               "position": {
                 "x": -184,
-                "y": 280
+                "y": 376
               }
             },
             {
@@ -1389,69 +1265,21 @@
               },
               "position": {
                 "x": -184,
-                "y": 344
+                "y": 456
               }
             },
             {
-              "id": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe",
+              "id": "7a511261-4dfc-4d84-b0ac-745a854813d3",
               "type": "basic.input",
               "data": {
                 "name": "sprite",
-                "range": "[3:0]",
+                "range": "[7:0]",
                 "clock": false,
-                "size": 4
+                "size": 8
               },
               "position": {
                 "x": -184,
-                "y": 408
-              }
-            },
-            {
-              "id": "194dace5-1ed9-45a9-b39e-a5f07ce420ee",
-              "type": "basic.input",
-              "data": {
-                "name": "left",
-                "clock": false
-              },
-              "position": {
-                "x": -184,
-                "y": 472
-              }
-            },
-            {
-              "id": "4c3eb622-287d-4242-9e6c-61471b6dfd47",
-              "type": "basic.input",
-              "data": {
-                "name": "right",
-                "clock": false
-              },
-              "position": {
-                "x": -184,
-                "y": 552
-              }
-            },
-            {
-              "id": "f8b0c591-e860-468b-83b6-117034220aa1",
-              "type": "basic.input",
-              "data": {
-                "name": "up",
-                "clock": false
-              },
-              "position": {
-                "x": -184,
-                "y": 632
-              }
-            },
-            {
-              "id": "98c27138-80f4-4125-8fac-5bd35bc7d645",
-              "type": "basic.input",
-              "data": {
-                "name": "down",
-                "clock": false
-              },
-              "position": {
-                "x": -184,
-                "y": 712
+                "y": 544
               }
             },
             {
@@ -1505,10 +1333,54 @@
               }
             },
             {
+              "id": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
+              "type": "bd4ef003fb3387f61abe25d4d6f1d3ab04cf8bb2",
+              "position": {
+                "x": 952,
+                "y": 16
+              },
+              "size": {
+                "width": 96,
+                "height": 64
+              }
+            },
+            {
+              "id": "63f722ea-ff22-44e8-b57b-80500581f240",
+              "type": "basic.info",
+              "data": {
+                "info": "Stage 01: Se calcula dirección del sprite en la ROM.</br>\n<b>Nota:</b> No se aprovechan todos los sprites posibles. Tenemos 8 y con cuatro bits podríamos acceder a 16.",
+                "readonly": true
+              },
+              "position": {
+                "x": 288,
+                "y": 664
+              },
+              "size": {
+                "width": 552,
+                "height": 136
+              }
+            },
+            {
+              "id": "7e140ad5-a955-4ee5-99bb-141dc0616c9b",
+              "type": "basic.info",
+              "data": {
+                "info": "Stage 02: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
+                "readonly": true
+              },
+              "position": {
+                "x": 1384,
+                "y": 400
+              },
+              "size": {
+                "width": 392,
+                "height": 80
+              }
+            },
+            {
               "id": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
               "type": "basic.code",
               "data": {
-                "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n    if (left)\n        addr <= {sprite[2:0], RGBStr_i[6:3],~RGBStr_i[16:13]};\n    if (right)\n        addr <= {sprite[2:0], ~RGBStr_i[6:3],RGBStr_i[16:13]};\n    if (up)\n        addr <= {sprite[2:0], RGBStr_i[16:13],~RGBStr_i[6:3]};\n    if (down)\n        addr <= {sprite[2:0], ~RGBStr_i[16:13],RGBStr_i[6:3]};\nend",
+                "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\n// Orientation codes.\nparameter   LEFT  = 2'b10, \n            RIGHT = 2'b01, \n            UP    = 2'b11, \n            DOWN  = 2'b00;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    case (sprite[7:6])\n        LEFT:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n            end\n        \n        RIGHT:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], ~RGBStr_i[16:13]};\n            end\n        \n        UP:\n            begin\n                addr <= {sprite[2:0], ~RGBStr_i[16:13],RGBStr_i[6:3]};\n            end\n\n        DOWN:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[16:13],~RGBStr_i[6:3]};\n            end\n        \n        default:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n            end\n        endcase\nend",
                 "params": [],
                 "ports": {
                   "in": [
@@ -1532,20 +1404,8 @@
                     },
                     {
                       "name": "sprite",
-                      "range": "[3:0]",
-                      "size": 4
-                    },
-                    {
-                      "name": "left"
-                    },
-                    {
-                      "name": "right"
-                    },
-                    {
-                      "name": "up"
-                    },
-                    {
-                      "name": "down"
+                      "range": "[7:0]",
+                      "size": 8
                     }
                   ],
                   "out": [
@@ -1579,66 +1439,6 @@
               "size": {
                 "width": 712,
                 "height": 424
-              }
-            },
-            {
-              "id": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
-              "type": "bd4ef003fb3387f61abe25d4d6f1d3ab04cf8bb2",
-              "position": {
-                "x": 952,
-                "y": 16
-              },
-              "size": {
-                "width": 96,
-                "height": 64
-              }
-            },
-            {
-              "id": "63f722ea-ff22-44e8-b57b-80500581f240",
-              "type": "basic.info",
-              "data": {
-                "info": "Stage 01: Se calcula dirección del sprite en la ROM.</br>\n<b>Nota:</b> No se aprovechan todos los sprites posibles. Tenemos 8 y con cuatro bits podríamos acceder a 16.",
-                "readonly": true
-              },
-              "position": {
-                "x": 280,
-                "y": 656
-              },
-              "size": {
-                "width": 552,
-                "height": 136
-              }
-            },
-            {
-              "id": "cdf94fbe-8820-4e4f-95db-03d345a87a1d",
-              "type": "basic.info",
-              "data": {
-                "info": "TODO: Indicar la orientación con un bus de dos bits.",
-                "readonly": true
-              },
-              "position": {
-                "x": -128,
-                "y": 784
-              },
-              "size": {
-                "width": 416,
-                "height": 72
-              }
-            },
-            {
-              "id": "7e140ad5-a955-4ee5-99bb-141dc0616c9b",
-              "type": "basic.info",
-              "data": {
-                "info": "Stage 02: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
-                "readonly": true
-              },
-              "position": {
-                "x": 1384,
-                "y": 400
-              },
-              "size": {
-                "width": 392,
-                "height": 80
               }
             }
           ],
@@ -1747,49 +1547,6 @@
             },
             {
               "source": {
-                "block": "194dace5-1ed9-45a9-b39e-a5f07ce420ee",
-                "port": "out"
-              },
-              "target": {
-                "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-                "port": "left"
-              }
-            },
-            {
-              "source": {
-                "block": "4c3eb622-287d-4242-9e6c-61471b6dfd47",
-                "port": "out"
-              },
-              "target": {
-                "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-                "port": "right"
-              },
-              "vertices": []
-            },
-            {
-              "source": {
-                "block": "f8b0c591-e860-468b-83b6-117034220aa1",
-                "port": "out"
-              },
-              "target": {
-                "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-                "port": "up"
-              },
-              "vertices": []
-            },
-            {
-              "source": {
-                "block": "98c27138-80f4-4125-8fac-5bd35bc7d645",
-                "port": "out"
-              },
-              "target": {
-                "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-                "port": "down"
-              },
-              "vertices": []
-            },
-            {
-              "source": {
                 "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
                 "port": "addr"
               },
@@ -1857,14 +1614,14 @@
             },
             {
               "source": {
-                "block": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe",
+                "block": "7a511261-4dfc-4d84-b0ac-745a854813d3",
                 "port": "out"
               },
               "target": {
                 "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
                 "port": "sprite"
               },
-              "size": 4
+              "size": 8
             }
           ]
         }

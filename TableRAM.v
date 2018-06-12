@@ -36,7 +36,7 @@ module TableRAM
     parameter rows = 30,
     parameter cols = 40,
     parameter addr_width = 11,           // log2(rows*cols)
-    parameter nsprites = 4               // cambiar nombre por spr_width = log2(nsprites)
+    parameter nsprites = 8               // cambiar nombre por spr_width = log2(nsprites)
 )
 (
     input wire                  clk,

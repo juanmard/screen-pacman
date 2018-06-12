@@ -385,7 +385,7 @@
           },
           "position": {
             "x": -184,
-            "y": 280
+            "y": 376
           }
         },
         {
@@ -451,16 +451,36 @@
           },
           "position": {
             "x": -184,
-            "y": 344
+            "y": 456
           }
         },
         {
-          "id": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe",
+          "id": "7a511261-4dfc-4d84-b0ac-745a854813d3",
           "type": "basic.input",
           "data": {
             "name": "sprite",
-            "range": "[3:0]",
+            "range": "[7:0]",
             "pins": [
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
               {
                 "index": "3",
                 "name": "",
@@ -487,87 +507,7 @@
           },
           "position": {
             "x": -184,
-            "y": 408
-          }
-        },
-        {
-          "id": "194dace5-1ed9-45a9-b39e-a5f07ce420ee",
-          "type": "basic.input",
-          "data": {
-            "name": "left",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -184,
-            "y": 472
-          }
-        },
-        {
-          "id": "4c3eb622-287d-4242-9e6c-61471b6dfd47",
-          "type": "basic.input",
-          "data": {
-            "name": "right",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -184,
-            "y": 552
-          }
-        },
-        {
-          "id": "f8b0c591-e860-468b-83b6-117034220aa1",
-          "type": "basic.input",
-          "data": {
-            "name": "up",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -184,
-            "y": 632
-          }
-        },
-        {
-          "id": "98c27138-80f4-4125-8fac-5bd35bc7d645",
-          "type": "basic.input",
-          "data": {
-            "name": "down",
-            "pins": [
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true,
-            "clock": false
-          },
-          "position": {
-            "x": -184,
-            "y": 712
+            "y": 544
           }
         },
         {
@@ -621,10 +561,54 @@
           }
         },
         {
+          "id": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
+          "type": "bd4ef003fb3387f61abe25d4d6f1d3ab04cf8bb2",
+          "position": {
+            "x": 952,
+            "y": 16
+          },
+          "size": {
+            "width": 96,
+            "height": 64
+          }
+        },
+        {
+          "id": "63f722ea-ff22-44e8-b57b-80500581f240",
+          "type": "basic.info",
+          "data": {
+            "info": "Stage 01: Se calcula dirección del sprite en la ROM.</br>\n<b>Nota:</b> No se aprovechan todos los sprites posibles. Tenemos 8 y con cuatro bits podríamos acceder a 16.",
+            "readonly": true
+          },
+          "position": {
+            "x": 288,
+            "y": 664
+          },
+          "size": {
+            "width": 552,
+            "height": 136
+          }
+        },
+        {
+          "id": "7e140ad5-a955-4ee5-99bb-141dc0616c9b",
+          "type": "basic.info",
+          "data": {
+            "info": "Stage 02: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
+            "readonly": true
+          },
+          "position": {
+            "x": 1384,
+            "y": 400
+          },
+          "size": {
+            "width": 392,
+            "height": 80
+          }
+        },
+        {
           "id": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
           "type": "basic.code",
           "data": {
-            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n    if (left)\n        addr <= {sprite[2:0], RGBStr_i[6:3],~RGBStr_i[16:13]};\n    if (right)\n        addr <= {sprite[2:0], ~RGBStr_i[6:3],RGBStr_i[16:13]};\n    if (up)\n        addr <= {sprite[2:0], RGBStr_i[16:13],~RGBStr_i[6:3]};\n    if (down)\n        addr <= {sprite[2:0], ~RGBStr_i[16:13],RGBStr_i[6:3]};\nend",
+            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\n// Orientation codes.\nparameter   LEFT  = 2'b10, \n            RIGHT = 2'b01, \n            UP    = 2'b11, \n            DOWN  = 2'b00;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    case (sprite[7:6])\n        LEFT:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n            end\n        \n        RIGHT:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], ~RGBStr_i[16:13]};\n            end\n        \n        UP:\n            begin\n                addr <= {sprite[2:0], ~RGBStr_i[16:13],RGBStr_i[6:3]};\n            end\n\n        DOWN:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[16:13],~RGBStr_i[6:3]};\n            end\n        \n        default:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n            end\n        endcase\nend",
             "params": [],
             "ports": {
               "in": [
@@ -648,20 +632,8 @@
                 },
                 {
                   "name": "sprite",
-                  "range": "[3:0]",
-                  "size": 4
-                },
-                {
-                  "name": "left"
-                },
-                {
-                  "name": "right"
-                },
-                {
-                  "name": "up"
-                },
-                {
-                  "name": "down"
+                  "range": "[7:0]",
+                  "size": 8
                 }
               ],
               "out": [
@@ -695,66 +667,6 @@
           "size": {
             "width": 712,
             "height": 424
-          }
-        },
-        {
-          "id": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
-          "type": "bd4ef003fb3387f61abe25d4d6f1d3ab04cf8bb2",
-          "position": {
-            "x": 952,
-            "y": 16
-          },
-          "size": {
-            "width": 96,
-            "height": 64
-          }
-        },
-        {
-          "id": "63f722ea-ff22-44e8-b57b-80500581f240",
-          "type": "basic.info",
-          "data": {
-            "info": "Stage 01: Se calcula dirección del sprite en la ROM.</br>\n<b>Nota:</b> No se aprovechan todos los sprites posibles. Tenemos 8 y con cuatro bits podríamos acceder a 16.",
-            "readonly": true
-          },
-          "position": {
-            "x": 280,
-            "y": 656
-          },
-          "size": {
-            "width": 552,
-            "height": 136
-          }
-        },
-        {
-          "id": "cdf94fbe-8820-4e4f-95db-03d345a87a1d",
-          "type": "basic.info",
-          "data": {
-            "info": "TODO: Indicar la orientación con un bus de dos bits.",
-            "readonly": true
-          },
-          "position": {
-            "x": -128,
-            "y": 784
-          },
-          "size": {
-            "width": 416,
-            "height": 72
-          }
-        },
-        {
-          "id": "7e140ad5-a955-4ee5-99bb-141dc0616c9b",
-          "type": "basic.info",
-          "data": {
-            "info": "Stage 02: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
-            "readonly": true
-          },
-          "position": {
-            "x": 1384,
-            "y": 400
-          },
-          "size": {
-            "width": 392,
-            "height": 80
           }
         }
       ],
@@ -863,49 +775,6 @@
         },
         {
           "source": {
-            "block": "194dace5-1ed9-45a9-b39e-a5f07ce420ee",
-            "port": "out"
-          },
-          "target": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "left"
-          }
-        },
-        {
-          "source": {
-            "block": "4c3eb622-287d-4242-9e6c-61471b6dfd47",
-            "port": "out"
-          },
-          "target": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "right"
-          },
-          "vertices": []
-        },
-        {
-          "source": {
-            "block": "f8b0c591-e860-468b-83b6-117034220aa1",
-            "port": "out"
-          },
-          "target": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "up"
-          },
-          "vertices": []
-        },
-        {
-          "source": {
-            "block": "98c27138-80f4-4125-8fac-5bd35bc7d645",
-            "port": "out"
-          },
-          "target": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "down"
-          },
-          "vertices": []
-        },
-        {
-          "source": {
             "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
             "port": "addr"
           },
@@ -973,14 +842,14 @@
         },
         {
           "source": {
-            "block": "609a62e4-5ce2-4ba4-8e94-0fe0b4b82afe",
+            "block": "7a511261-4dfc-4d84-b0ac-745a854813d3",
             "port": "out"
           },
           "target": {
             "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
             "port": "sprite"
           },
-          "size": 4
+          "size": 8
         }
       ]
     }

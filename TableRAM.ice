@@ -103,12 +103,32 @@
           }
         },
         {
-          "id": "4055315b-3e0a-48d6-a5e2-be538de6f18c",
+          "id": "fabee3b6-1818-4dba-8712-432250ae5377",
           "type": "basic.input",
           "data": {
             "name": "din",
-            "range": "[3:0]",
+            "range": "[7:0]",
             "pins": [
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
               {
                 "index": "3",
                 "name": "",
@@ -139,12 +159,32 @@
           }
         },
         {
-          "id": "4cb68ed7-785f-48a7-b9db-31209423c5a6",
+          "id": "459c4732-a880-499f-9015-4bcef96a18fa",
           "type": "basic.output",
           "data": {
             "name": "dout",
-            "range": "[3:0]",
+            "range": "[7:0]",
             "pins": [
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
               {
                 "index": "3",
                 "name": "",
@@ -281,12 +321,12 @@
           "id": "00755dad-0c04-4e28-a670-755c47a0633c",
           "type": "basic.info",
           "data": {
-            "info": "Double port RAM for storing a \ngame table of 30*40 cells of 4b.\nEvery cell points to a different\nbmp image stored in a BmpROM\n",
+            "info": "Double port RAM for storing a \ngame table of 30*40 cells of 8b.\nEvery cell points to a different\nsprite image stored in a \"SpriteROM\"\nwith its orientation.\n",
             "readonly": true
           },
           "position": {
             "x": 552,
-            "y": -8
+            "y": 16
           },
           "size": {
             "width": 408,
@@ -315,8 +355,8 @@
                 },
                 {
                   "name": "din",
-                  "range": "[3:0]",
-                  "size": 4
+                  "range": "[7:0]",
+                  "size": 8
                 },
                 {
                   "name": "write_en"
@@ -330,8 +370,8 @@
               "out": [
                 {
                   "name": "dout",
-                  "range": "[3:0]",
-                  "size": 4
+                  "range": "[7:0]",
+                  "size": 8
                 }
               ]
             }
@@ -356,17 +396,6 @@
             "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
             "port": "px_clk"
           }
-        },
-        {
-          "source": {
-            "block": "4055315b-3e0a-48d6-a5e2-be538de6f18c",
-            "port": "out"
-          },
-          "target": {
-            "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
-            "port": "din"
-          },
-          "size": 4
         },
         {
           "source": {
@@ -402,17 +431,6 @@
         },
         {
           "source": {
-            "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
-            "port": "dout"
-          },
-          "target": {
-            "block": "4cb68ed7-785f-48a7-b9db-31209423c5a6",
-            "port": "in"
-          },
-          "size": 4
-        },
-        {
-          "source": {
             "block": "869cdf80-d1c6-43f9-b27a-a2297e7de303",
             "port": "constant-out"
           },
@@ -420,6 +438,28 @@
             "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
             "port": "TABFILE"
           }
+        },
+        {
+          "source": {
+            "block": "fabee3b6-1818-4dba-8712-432250ae5377",
+            "port": "out"
+          },
+          "target": {
+            "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
+            "port": "din"
+          },
+          "size": 8
+        },
+        {
+          "source": {
+            "block": "64cada8b-972a-41e2-a42f-822bfdeb3caf",
+            "port": "dout"
+          },
+          "target": {
+            "block": "459c4732-a880-499f-9015-4bcef96a18fa",
+            "port": "in"
+          },
+          "size": 8
         }
       ]
     }
