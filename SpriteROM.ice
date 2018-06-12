@@ -1,10 +1,10 @@
 {
   "version": "1.1",
   "package": {
-    "name": "",
-    "version": "",
-    "description": "",
-    "author": "",
+    "name": "SpriteROM",
+    "version": "1.0",
+    "description": "ROM with sprites in game.",
+    "author": "Juan Manuel Rico / Sergio Cuenca",
     "image": ""
   },
   "design": {
@@ -143,7 +143,7 @@
           "data": {
             "name": "BMPFILE",
             "value": "\"pacman.list\"",
-            "local": false
+            "local": true
           },
           "position": {
             "x": 408,
@@ -154,7 +154,7 @@
           "id": "3e2dc9e6-a001-4a02-a847-b271a26f7674",
           "type": "basic.code",
           "data": {
-            "code": "//@include BmpROM.v\n\nBmpROM\n#(\n    .BMPFILE(BMPFILE)\n)\nBmpROM_01\n(\n    clk,    // System clock.          \n    add,    // Address in ROM.\n    pixel   // Pixel in address.        \n);",
+            "code": "//@include SpriteROM.v\n\nSpriteROM\n#(\n    .FILE(BMPFILE)\n)\nSpriteROM_01\n(\n    clk,    // System clock.          \n    add,    // Address in ROM.\n    pixel   // Pixel in address.        \n);",
             "params": [
               {
                 "name": "BMPFILE"

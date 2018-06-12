@@ -3,7 +3,7 @@
 // Engineer: Juan Manuel Rico
 //
 // Create Date: 09:30:38 19/09/2017
-// Module Name: BmpROM
+// Module Name: SpriteROM
 // Description: ROM for storing the sprites of the game
 //              4 sprites of 16x16 pixel and 4 bits per pixel.
 //
@@ -18,14 +18,14 @@
 //-- GPL license
 //-----------------------------------------------------------------------------
 
-module BmpROM
+module SpriteROM
 #(
-    parameter BMPFILE = "pacman.list"
+    parameter FILE = "pacman.list"
 )
 (
-    input  wire clk,             // System clock.
+    input  wire        clk,      // System clock.
     input  wire [10:0] add,      // Address in ROM.
-    output reg  [3:0] pixel      // Pixel in address.
+    output reg  [3:0]  pixel     // Pixel in address.
 );
 
     // Width and height image. Both power of 2 
@@ -39,7 +39,7 @@ module BmpROM
     // Load file in memory.
     initial
     begin
-       if (BMPFILE) $readmemh(BMPFILE, bmps);
+       if (FILE) $readmemh(FILE, bmps);
     end
 
     // Read memory.

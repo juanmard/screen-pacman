@@ -1,10 +1,10 @@
 {
   "version": "1.1",
   "package": {
-    "name": "",
-    "version": "",
-    "description": "",
-    "author": "",
+    "name": "PxsSprite",
+    "version": "1.0",
+    "description": "Draws a sprite in a position on the screen with orientation.",
+    "author": "Juan Manuel Rico",
     "image": ""
   },
   "design": {
@@ -29,151 +29,6 @@
           "position": {
             "x": -184,
             "y": 0
-          }
-        },
-        {
-          "id": "eeb7f72c-5a73-4347-9c78-1a37d276caa2",
-          "type": "basic.output",
-          "data": {
-            "name": "RGBStr_o",
-            "range": "[25:0]",
-            "pins": [
-              {
-                "index": "25",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "24",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "23",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "22",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "21",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "20",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "19",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "18",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "17",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "16",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "15",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "14",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "13",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "12",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "11",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "10",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "9",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "8",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "7",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "6",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "5",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "4",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "3",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "2",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "1",
-                "name": "",
-                "value": "0"
-              },
-              {
-                "index": "0",
-                "name": "",
-                "value": "0"
-              }
-            ],
-            "virtual": true
-          },
-          "position": {
-            "x": 1976,
-            "y": 72
           }
         },
         {
@@ -323,6 +178,151 @@
           }
         },
         {
+          "id": "eeb7f72c-5a73-4347-9c78-1a37d276caa2",
+          "type": "basic.output",
+          "data": {
+            "name": "RGBStr_o",
+            "range": "[25:0]",
+            "pins": [
+              {
+                "index": "25",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "24",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "23",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "22",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "21",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "20",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "19",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "18",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "17",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "16",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "15",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "14",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "13",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "12",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "11",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "10",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "9",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "8",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "7",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "6",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "5",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "4",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "3",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "2",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "1",
+                "name": "",
+                "value": "0"
+              },
+              {
+                "index": "0",
+                "name": "",
+                "value": "0"
+              }
+            ],
+            "virtual": true
+          },
+          "position": {
+            "x": 1976,
+            "y": 96
+          }
+        },
+        {
           "id": "2a3a712b-f811-4d1f-800c-8bdffc0f012a",
           "type": "basic.input",
           "data": {
@@ -384,7 +384,7 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 280
           }
         },
@@ -450,7 +450,7 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 344
           }
         },
@@ -486,7 +486,7 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 408
           }
         },
@@ -506,7 +506,7 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 472
           }
         },
@@ -526,7 +526,7 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 552
           }
         },
@@ -546,7 +546,7 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 632
           }
         },
@@ -566,20 +566,8 @@
             "clock": false
           },
           "position": {
-            "x": -200,
+            "x": -184,
             "y": 712
-          }
-        },
-        {
-          "id": "68852783-b999-43a1-8d63-a88fdee4b265",
-          "type": "ee8fec16d2fff56668fc4eda6a17d2dbf1878372",
-          "position": {
-            "x": 952,
-            "y": 0
-          },
-          "size": {
-            "width": 96,
-            "height": 64
           }
         },
         {
@@ -628,8 +616,8 @@
             "y": -80
           },
           "size": {
-            "width": 656,
-            "height": 368
+            "width": 664,
+            "height": 416
           }
         },
         {
@@ -706,7 +694,67 @@
           },
           "size": {
             "width": 712,
-            "height": 496
+            "height": 424
+          }
+        },
+        {
+          "id": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
+          "type": "bd4ef003fb3387f61abe25d4d6f1d3ab04cf8bb2",
+          "position": {
+            "x": 952,
+            "y": 16
+          },
+          "size": {
+            "width": 96,
+            "height": 64
+          }
+        },
+        {
+          "id": "63f722ea-ff22-44e8-b57b-80500581f240",
+          "type": "basic.info",
+          "data": {
+            "info": "Stage 01: Se calcula dirección del sprite en la ROM.</br>\n<b>Nota:</b> No se aprovechan todos los sprites posibles. Tenemos 8 y con cuatro bits podríamos acceder a 16.",
+            "readonly": true
+          },
+          "position": {
+            "x": 280,
+            "y": 656
+          },
+          "size": {
+            "width": 552,
+            "height": 136
+          }
+        },
+        {
+          "id": "cdf94fbe-8820-4e4f-95db-03d345a87a1d",
+          "type": "basic.info",
+          "data": {
+            "info": "TODO: Indicar la orientación con un bus de dos bits.",
+            "readonly": true
+          },
+          "position": {
+            "x": -128,
+            "y": 784
+          },
+          "size": {
+            "width": 416,
+            "height": 72
+          }
+        },
+        {
+          "id": "7e140ad5-a955-4ee5-99bb-141dc0616c9b",
+          "type": "basic.info",
+          "data": {
+            "info": "Stage 02: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
+            "readonly": true
+          },
+          "position": {
+            "x": 1384,
+            "y": 400
+          },
+          "size": {
+            "width": 392,
+            "height": 80
           }
         }
       ],
@@ -717,7 +765,7 @@
             "port": "out"
           },
           "target": {
-            "block": "68852783-b999-43a1-8d63-a88fdee4b265",
+            "block": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
             "port": "9f1c6d9f-7298-44d0-8c68-344871c4714c"
           }
         },
@@ -739,7 +787,7 @@
         },
         {
           "source": {
-            "block": "68852783-b999-43a1-8d63-a88fdee4b265",
+            "block": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
             "port": "969e8c86-4a03-43e6-adc9-981e18ff5784"
           },
           "target": {
@@ -796,8 +844,8 @@
               "y": 272
             },
             {
-              "x": 1096,
-              "y": 104
+              "x": 1064,
+              "y": 128
             }
           ],
           "size": 26
@@ -862,7 +910,7 @@
             "port": "addr"
           },
           "target": {
-            "block": "68852783-b999-43a1-8d63-a88fdee4b265",
+            "block": "9a6d3cd2-42ee-42da-b7ba-c8e47f90b9f1",
             "port": "620b1504-1375-43cb-a009-b39a60b94e28"
           },
           "size": 11
@@ -938,12 +986,12 @@
     }
   },
   "dependencies": {
-    "ee8fec16d2fff56668fc4eda6a17d2dbf1878372": {
+    "bd4ef003fb3387f61abe25d4d6f1d3ab04cf8bb2": {
       "package": {
-        "name": "",
-        "version": "",
-        "description": "",
-        "author": "",
+        "name": "SpriteROM",
+        "version": "1.0",
+        "description": "ROM with sprites in game.",
+        "author": "Juan Manuel Rico / Sergio Cuenca",
         "image": ""
       },
       "design": {
@@ -994,7 +1042,7 @@
               "data": {
                 "name": "BMPFILE",
                 "value": "\"pacman.list\"",
-                "local": false
+                "local": true
               },
               "position": {
                 "x": 408,
@@ -1005,7 +1053,7 @@
               "id": "3e2dc9e6-a001-4a02-a847-b271a26f7674",
               "type": "basic.code",
               "data": {
-                "code": "//@include BmpROM.v\n\nBmpROM\n#(\n    .BMPFILE(BMPFILE)\n)\nBmpROM_01\n(\n    clk,    // System clock.          \n    add,    // Address in ROM.\n    pixel   // Pixel in address.        \n);",
+                "code": "//@include SpriteROM.v\n\nSpriteROM\n#(\n    .FILE(BMPFILE)\n)\nSpriteROM_01\n(\n    clk,    // System clock.          \n    add,    // Address in ROM.\n    pixel   // Pixel in address.        \n);",
                 "params": [
                   {
                     "name": "BMPFILE"
