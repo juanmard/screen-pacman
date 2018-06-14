@@ -318,7 +318,7 @@
             "virtual": true
           },
           "position": {
-            "x": 1976,
+            "x": 2280,
             "y": 96
           }
         },
@@ -384,8 +384,8 @@
             "clock": false
           },
           "position": {
-            "x": -184,
-            "y": 376
+            "x": -192,
+            "y": 336
           }
         },
         {
@@ -450,8 +450,8 @@
             "clock": false
           },
           "position": {
-            "x": -184,
-            "y": 456
+            "x": -192,
+            "y": 416
           }
         },
         {
@@ -506,15 +506,15 @@
             "clock": false
           },
           "position": {
-            "x": -184,
-            "y": 544
+            "x": -192,
+            "y": 504
           }
         },
         {
           "id": "4aefd809-340f-4adb-a379-ea494ea714f1",
           "type": "basic.code",
           "data": {
-            "code": "`define RGB 25:23\t\t// Pixel RGB (1:1:1)\n`define Active 0:0 \t\t// ActiveVideo\n`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nlocalparam sprw = 16;\nlocalparam sprh = 16;\n\nreg [25:0] RGBStr_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    if (\n        (RGBStr_i[`Active]) &&\n        (RGBStr_i[`XC] >= posx) && (RGBStr_i[`XC] < posx + sprw) &&\n        (RGBStr_i[`YC] >= posy) && (RGBStr_i[`YC] < posy + sprh)\n        )\n    begin\n        RGBStr_o[`RGB] <= pixel[2:0];\n    end\nend",
+            "code": "`define RGB 25:23\t\t// Pixel RGB (1:1:1)\n`define Active 0:0 \t\t// ActiveVideo\n`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nlocalparam sprw = 16;  // Sprite width.\nlocalparam sprh = 16;  // Sprite height.\n\nreg [25:0] RGBStr_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    if (RGBStr_i[`Active])\n    begin\n        RGBStr_o[`RGB] <= pixel[2:0];  // Only three pixels for color.\n    end\nend\n",
             "params": [],
             "ports": {
               "in": [
@@ -552,7 +552,7 @@
             }
           },
           "position": {
-            "x": 1200,
+            "x": 1512,
             "y": -80
           },
           "size": {
@@ -580,8 +580,8 @@
             "readonly": true
           },
           "position": {
-            "x": 288,
-            "y": 664
+            "x": 136,
+            "y": 584
           },
           "size": {
             "width": 552,
@@ -592,12 +592,12 @@
           "id": "7e140ad5-a955-4ee5-99bb-141dc0616c9b",
           "type": "basic.info",
           "data": {
-            "info": "Stage 02: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
+            "info": "Stage 03: Se dibuja los píxeles en la posición indicada.\nNOTA: Puesto que la dirección se obtiene por composición de la x e y al ser las dimensiones del \"sprite\" una potencia de dos, la posición final debe ser también una posición potencia de dos.\n",
             "readonly": true
           },
           "position": {
-            "x": 1384,
-            "y": 400
+            "x": 1640,
+            "y": 368
           },
           "size": {
             "width": 392,
@@ -608,7 +608,7 @@
           "id": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
           "type": "basic.code",
           "data": {
-            "code": "`define YC 12:3\t\t\t// Y Coordinate\n`define XC 22:13\t\t// X Coordinate\n\nreg [10:0] addr;\nreg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\n// Orientation codes.\nparameter   LEFT  = 2'b10, \n            RIGHT = 2'b01, \n            UP    = 2'b11, \n            DOWN  = 2'b00;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n    posx_o <= posx_i;\n    posy_o <= posy_i;\n    \n    case (sprite[7:6])\n        LEFT:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n            end\n        \n        RIGHT:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], ~RGBStr_i[16:13]};\n            end\n        \n        UP:\n            begin\n                addr <= {sprite[2:0], ~RGBStr_i[16:13],RGBStr_i[6:3]};\n            end\n\n        DOWN:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[16:13],~RGBStr_i[6:3]};\n            end\n        \n        default:\n            begin\n                addr <= {sprite[2:0], RGBStr_i[6:3], RGBStr_i[16:13]};\n            end\n        endcase\nend",
+            "code": "//@include TestCodeA.v\n\nTestCodeA\nTestCodeA_01\n(\n    px_clk,\n    RGBStr_i,\n    posx_i,\n    posy_i,\n    sprite,\n    addr,\n    RGBStr_o,\n    posx_o,\n    posy_o\n);",
             "params": [],
             "ports": {
               "in": [
@@ -665,8 +665,79 @@
             "y": 192
           },
           "size": {
-            "width": 712,
-            "height": 424
+            "width": 320,
+            "height": 344
+          }
+        },
+        {
+          "id": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+          "type": "basic.code",
+          "data": {
+            "code": "reg [25:0] RGBStr_o;\nreg [9:0] posx_o;\nreg [9:0] posy_o;\n\nalways @(px_clk)\nbegin\n    RGBStr_o <= RGBStr_i;\n   // posx_o <= posx_i;\n//    posy_o <= posy_i;\nend",
+            "params": [],
+            "ports": {
+              "in": [
+                {
+                  "name": "px_clk"
+                },
+                {
+                  "name": "RGBStr_i",
+                  "range": "[25:0]",
+                  "size": 26
+                },
+                {
+                  "name": "posx_i",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "posy_i",
+                  "range": "[9:0]",
+                  "size": 10
+                }
+              ],
+              "out": [
+                {
+                  "name": "RGBStr_o",
+                  "range": "[25:0]",
+                  "size": 26
+                },
+                {
+                  "name": "posx_o",
+                  "range": "[9:0]",
+                  "size": 10
+                },
+                {
+                  "name": "posy_o",
+                  "range": "[9:0]",
+                  "size": 10
+                }
+              ]
+            }
+          },
+          "position": {
+            "x": 824,
+            "y": 248
+          },
+          "size": {
+            "width": 376,
+            "height": 184
+          }
+        },
+        {
+          "id": "8e931037-86bd-48e6-82b0-fd728917d648",
+          "type": "basic.info",
+          "data": {
+            "info": "Stage 02: Cálculo del pixel en ROM.",
+            "readonly": true
+          },
+          "position": {
+            "x": 904,
+            "y": 456
+          },
+          "size": {
+            "width": 360,
+            "height": 72
           }
         }
       ],
@@ -719,8 +790,8 @@
           },
           "vertices": [
             {
-              "x": 664,
-              "y": 0
+              "x": 696,
+              "y": -16
             }
           ]
         },
@@ -737,27 +808,6 @@
             {
               "x": 16,
               "y": 232
-            }
-          ],
-          "size": 26
-        },
-        {
-          "source": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "RGBStr_o"
-          },
-          "target": {
-            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
-            "port": "RGBStr_i"
-          },
-          "vertices": [
-            {
-              "x": 1032,
-              "y": 272
-            },
-            {
-              "x": 1064,
-              "y": 128
             }
           ],
           "size": 26
@@ -808,17 +858,39 @@
         },
         {
           "source": {
+            "block": "7a511261-4dfc-4d84-b0ac-745a854813d3",
+            "port": "out"
+          },
+          "target": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "sprite"
+          },
+          "size": 8
+        },
+        {
+          "source": {
+            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
+            "port": "RGBStr_o"
+          },
+          "target": {
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "RGBStr_i"
+          },
+          "size": 26
+        },
+        {
+          "source": {
             "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
             "port": "posx_o"
           },
           "target": {
-            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
-            "port": "posx"
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "posx_i"
           },
           "vertices": [
             {
-              "x": 1080,
-              "y": 320
+              "x": 704,
+              "y": 384
             }
           ],
           "size": 10
@@ -829,27 +901,83 @@
             "port": "posy_o"
           },
           "target": {
-            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
-            "port": "posy"
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "posy_i"
           },
           "vertices": [
             {
-              "x": 1128,
-              "y": 408
+              "x": 736,
+              "y": 456
             }
           ],
           "size": 10
         },
         {
           "source": {
-            "block": "7a511261-4dfc-4d84-b0ac-745a854813d3",
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "RGBStr_o"
+          },
+          "target": {
+            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
+            "port": "RGBStr_i"
+          },
+          "vertices": [
+            {
+              "x": 1336,
+              "y": 168
+            }
+          ],
+          "size": 26
+        },
+        {
+          "source": {
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "posx_o"
+          },
+          "target": {
+            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
+            "port": "posx"
+          },
+          "vertices": [
+            {
+              "x": 1392,
+              "y": 224
+            }
+          ],
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "posy_o"
+          },
+          "target": {
+            "block": "4aefd809-340f-4adb-a379-ea494ea714f1",
+            "port": "posy"
+          },
+          "vertices": [
+            {
+              "x": 1440,
+              "y": 328
+            }
+          ],
+          "size": 10
+        },
+        {
+          "source": {
+            "block": "42825077-fafc-4e85-ab47-0c3052e53228",
             "port": "out"
           },
           "target": {
-            "block": "f1881335-c2a3-40d6-8d56-c8a5bffd0107",
-            "port": "sprite"
+            "block": "75969b6b-3b58-49ef-b6c6-4a2952acf1c0",
+            "port": "px_clk"
           },
-          "size": 8
+          "vertices": [
+            {
+              "x": 696,
+              "y": 128
+            }
+          ]
         }
       ]
     }
