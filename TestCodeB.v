@@ -20,7 +20,7 @@
 module TestCodeB
 (
     input  wire px_clk,
-    input  wire dyn_clk,
+    input  wire endframe,
     input  wire rst,
     input  wire left,
     input  wire right,
@@ -30,12 +30,13 @@ module TestCodeB
     input  wire btn2,
     input  wire [7:0] read_sprite,
     output reg  [7:0] sprite,
-    output reg  update,
+    output reg        update,
     output reg  [5:0] posx,
     output reg  [5:0] posy,
     output reg        get,
     output reg        mute,
-    output reg  [1:0] sound
+    output reg  [1:0] sound,
+    input  wire       busy
 );
 // Output registers.
 //reg [7:0] sprite;
@@ -53,6 +54,9 @@ reg [4:0] contframe;        // Frames counter.
 
 // State codes for everyone object.
 parameter   WAIT        = 6'b000001, 
+            BLINKING    = 6'b000011, 
+            READ_SPRITE = 6'b000110, 
+            WAIT_READ   = 6'b000111, 
             RMV_PAC     = 6'b000010, 
             RMV_GHOST   = 6'b000100, 
             UPDT_PACMAN = 6'b001000, 
@@ -81,7 +85,7 @@ reg [2:0] orientation;
 reg [1:0] ghost_orientation;
 
 // Test registes.
-reg [7:0] temp_sprite = 8'd7;
+reg [7:0] temp_sprite;
 
 
 // Initial properties.
@@ -89,6 +93,7 @@ initial
 begin
     contframe <= 0;
     update <= 0;
+    get <= 0;
     state <= WAIT;
     
     // Initial Pacman.
@@ -99,6 +104,9 @@ begin
     
     //Initial Ghost.
     ghost_orientation <= LEFT;
+    
+    // Initial others.
+    temp_sprite <= 8'd7;
 end
     
 // 25-frames counter. 
@@ -107,21 +115,21 @@ begin
     if (rst)
         contframe <= 0;
     else
-        if (dyn_clk == 1) 
+        if (endframe) 
             contframe <= (contframe == 20) ? 0 : contframe + 1;
 end
 
-// Something to read?    
-always @(posedge dyn_clk)
-begin
 /*
-    if (get)
+// Something to read?    
+always @(posedge endframe)
+begin
+    if (ready)
     begin
         temp_sprite <= read_sprite;
         get <= 1'b0;
     end
-*/
 end
+*/
 
 // Update location and pacman state only once every 25 frames 
 // (for different refresh frequencies another value could be preferable)
@@ -164,11 +172,13 @@ begin
     if (btn1)
     begin
         temp_sprite <= {temp_sprite[7:5], temp_sprite[4:0]+1'b1};
+        // next_state <= EDIT;
     end
 
     if (btn2)
     begin
         temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
+        next_state <= BLINKING;
     end
 
     if (xpacman < 0)  xpacman <= 39; 
@@ -186,55 +196,88 @@ begin
     
 end
 
-/* explicit FSM implementation */
+/* FSM implementation */
+// Update state.
 always @(posedge px_clk)
-if (rst) state = WAIT; else state = next_state;
-
-always @(*) begin 
-    next_state = state;
-    case (state)
-        WAIT:           if (contframe == 20) next_state = RMV_PAC;
-                        else next_state = WAIT;
-//        GET_SPR:        next_state = READ_SPR;
-        RMV_PAC:        next_state = RMV_GHOST;
-        RMV_GHOST:      next_state = UPDT_PACMAN;
-        UPDT_PACMAN:    next_state = UPDT_GHOST;
-        UPDT_GHOST:     next_state = WAIT_0;
-        WAIT_0:         if (contframe == 0) next_state = WAIT;
-                        else next_state <= WAIT_0;
-    endcase
+begin
+    if (rst)
+        begin
+            state <= WAIT;
+        end
+    else
+        begin
+            if (contframe == 20)
+                state <= next_state;
+            else
+                state <= WAIT;
+        end
 end
 
+// State change, so you need update and doing something.
 always @(state) begin
     case (state)
         WAIT:           begin 
-                        update <= 0; 
+                        update <= 0;
                         end
                         
 //        GET_SPR:        begin
 //                        get <= 1'b1;
 //                        end
-    
-        RMV_PAC:        begin
-                        //update = 1;
-                        //posx = xpacman;
-                        //posy = ypacman;
-                        //sprite = temp_sprite;
-                        end
 
+        BLINKING:
+                        begin
+                        // Hay que leer el sprite de la posición actual y pasarlo
+                        // al temp_sprite para hacerlo parpadear. (si es uno vacío habría que cambiarlo por uno lleno).
+                        // ¿añadir a la información del sprite el inverso de los pixels?.
+                        update <= 1;
+                        posx <= xpacman;
+                        posy <= ypacman;
+                        sprite <= close ? temp_sprite : 0;
+//                        sprite <= close ? 3 : 0;
+                        end
+/*
+        READ_SPRITE:    begin
+                            if (busy)
+                                begin
+                                get <= 0;
+                                next_state <= READ_SPRITE;
+                                end
+                            else
+                                begin
+                                get <= 1;
+                                posx <= xpacman;
+                                posy <= ypacman;
+                                update <= 1;
+                                sprite <= close ? temp_sprite : 0;
+                                next_state <= WAIT;
+                                end
+                        end
+*/
+/*
+        WAIT_READ:
+                        begin
+                            if (ready)
+                            begin
+                                next_state <= BLINKING;
+                            end
+                        end
+*/
+/*
         RMV_GHOST:      begin
-/*                        update = 1;
+                        update = 1;
                         posx = xpacman - 2; 
 //                        temp_sprite = {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
                         sprite = temp_sprite;
-                        */
                         end
+*/
+/*
 
         UPDT_PACMAN:    begin
                         update <= 1;
                         posx <= xpacman;
                         posy <= ypacman;
                         sprite <= temp_sprite;
+*/
 /*
                         update = 1;
                         posx = xpacman;
@@ -243,9 +286,9 @@ always @(state) begin
                             sprite = {orientation, 5'd3}; // open
                         else
                             sprite = {orientation, 5'd2}; // close    
-*/
                             end
-                        
+*/
+/*
         UPDT_GHOST:     begin
                         //update = 1;
                         //posx = xpacman - 3; 
@@ -253,7 +296,7 @@ always @(state) begin
 //                        sprite = {ghost_orientation,6'd1};
                         //sprite = temp_sprite;
                         end 
-
+*/
         WAIT_0:         begin
                         update <= 0;
                         end

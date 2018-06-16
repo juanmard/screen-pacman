@@ -67,12 +67,17 @@
           }
         },
         {
-          "id": "620b1504-1375-43cb-a009-b39a60b94e28",
+          "id": "2945b2be-f193-4327-8baf-49fe9595cf81",
           "type": "basic.input",
           "data": {
-            "name": "add",
-            "range": "[10:0]",
+            "name": "addr",
+            "range": "[11:0]",
             "pins": [
+              {
+                "index": "11",
+                "name": "",
+                "value": "0"
+              },
               {
                 "index": "10",
                 "name": "",
@@ -154,7 +159,7 @@
           "id": "3e2dc9e6-a001-4a02-a847-b271a26f7674",
           "type": "basic.code",
           "data": {
-            "code": "//@include SpriteROM.v\n\nSpriteROM\n#(\n    .FILE(BMPFILE)\n)\nSpriteROM_01\n(\n    clk,    // System clock.          \n    add,    // Address in ROM.\n    pixel   // Pixel in address.        \n);",
+            "code": "//@include SpriteROM.v\n\nSpriteROM\n#(\n    .FILE(BMPFILE)\n)\nSpriteROM_01\n(\n    clk,    // System clock.          \n    addr,   // Address in ROM.\n    pixel   // Pixel in address.        \n);",
             "params": [
               {
                 "name": "BMPFILE"
@@ -166,9 +171,9 @@
                   "name": "clk"
                 },
                 {
-                  "name": "add",
-                  "range": "[10:0]",
-                  "size": 11
+                  "name": "addr",
+                  "range": "[11:0]",
+                  "size": 12
                 }
               ],
               "out": [
@@ -224,14 +229,14 @@
         },
         {
           "source": {
-            "block": "620b1504-1375-43cb-a009-b39a60b94e28",
+            "block": "2945b2be-f193-4327-8baf-49fe9595cf81",
             "port": "out"
           },
           "target": {
             "block": "3e2dc9e6-a001-4a02-a847-b271a26f7674",
-            "port": "add"
+            "port": "addr"
           },
-          "size": 11
+          "size": 12
         }
       ]
     }

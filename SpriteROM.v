@@ -24,14 +24,14 @@ module SpriteROM
 )
 (
     input  wire        clk,      // System clock.
-    input  wire [10:0] add,      // Address in ROM.
+    input  wire [11:0] addr,     // Address in ROM.
     output reg  [3:0]  pixel     // Pixel in address.
 );
 
     // Width and height image. Both power of 2 
     parameter width = 16; 
     parameter height = 16;
-    parameter nsprites = 8;
+    parameter nsprites = 16;
 
     // Memory
     reg  [3:0] bmps [nsprites*width*height-1:0];
@@ -45,7 +45,7 @@ module SpriteROM
     // Read memory.
     always @(posedge clk)
     begin
-        pixel <= bmps[add];
+        pixel <= bmps[addr];
     end
 
 endmodule

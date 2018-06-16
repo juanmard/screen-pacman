@@ -19,24 +19,18 @@
 
 module TestCodeA
 (
-    input  wire px_clk,
-    input  wire [25:0] RGBStr_i,
-    input  wire [9:0] posx_i,
-    input  wire [9:0] posy_i,
-    input  wire [7:0] sprite,
-    output reg  [10:0] addr,
-    output reg  [25:0] RGBStr_o,
-    output reg  [9:0] posx_o,
-    output reg  [9:0] posy_o
+    input  wire        px_clk,      // Pixel clock.
+    input  wire [25:0] RGBStr_i,    // Input RGB stream.
+    input  wire [7:0]  sprite,      // Sprite data.
+    output reg  [11:0] addr,        // Address ROM where pixel sprites are.
+    output reg  [25:0] RGBStr_o     // Output RGB stream.
 );
 
-`define YC 12:3			// Y Coordinate
-`define XC 22:13		// X Coordinate
+`define YC 12:3         // Y Coordinate
+`define XC 22:13        // X Coordinate
 
 //reg [10:0] addr;
 //reg [25:0] RGBStr_o;
-//reg [9:0] posx_o;
-//reg [9:0] posy_o;
 
 // Orientation codes.
 parameter   LEFT         = 3'b011,
@@ -49,21 +43,20 @@ parameter   LEFT         = 3'b011,
             DOWN_MIRROR  = 3'b101;
 
 wire [7:5] orientation;
-wire [2:0] bitmap;
+wire [3:0] bitmap;
 wire [3:0] posx;
 wire [3:0] posy;
 
 assign orientation = sprite[7:5];
-assign bitmap = sprite[2:0];
-assign posx = RGBStr_i[16:13];
-assign posy = RGBStr_i[6:3];
+assign bitmap = sprite[3:0];
+assign posx = RGBStr_i[17:13];
+assign posy = RGBStr_i[7:3];
 
 always @(px_clk)
 begin
     RGBStr_o <= RGBStr_i;
-   // posx_o <= posx_i;
-   // posy_o <= posy_i;
-    
+    if (RGBStr_i[0:0])      // Visible pixel.
+    begin
     case (orientation)
         LEFT:
             begin
@@ -110,6 +103,7 @@ begin
                 addr <= {bitmap, posy, posx};
             end
         endcase
+    end
 end
 
 endmodule

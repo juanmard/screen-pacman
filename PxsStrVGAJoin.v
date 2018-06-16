@@ -14,22 +14,22 @@
 //
 // Additional Comments: based on PixelStream lib from Celoxica Ltd.
 //
-//	Video Stream notation 
-//	- VGA: type of video 640x480 progresive
+//  Video Stream notation 
+//  - VGA: type of video 640x480 progresive
 //  - S: Sync signals HSync, VSync
-//	- C: Coordinates XCoord, YCoord	
-//	- A: ActiveVideo 
-//	- P: Pixel type RGB(1:1:1)/ Gray(3b)	
+//  - C: Coordinates XCoord, YCoord 
+//  - A: ActiveVideo 
+//  - P: Pixel type RGB(1:1:1)/ Gray(3b)    
 //////////////////////////////////////////////////////////////////////////////////
-module PxsStrVGAJoin (			
+module PxsStrVGAJoin (          
             input wire      HSync,         // Horizontal sync out
             input wire      VSync,         // Vertical sync out
             input wire [9:0] XCoord,       // ScanX postion
             input wire [9:0] YCoord,       // ScanY position 
-            input wire      ActiveVideo,	// active video
-			output wire [22:0] VGAStr		// output stream
+            input wire      ActiveVideo,    // active video
+            output wire [22:0] VGAStr       // output stream
          );
-		 
+         
 // alias 
 `define Active 0:0
 `define VS 1:1
@@ -40,7 +40,7 @@ module PxsStrVGAJoin (
     assign VGAStr[`HS]= HSync;
     assign VGAStr[`VS]= VSync;
     assign VGAStr[`Active] = ActiveVideo;
-	assign VGAStr[`XC] = XCoord;
-	assign VGAStr[`YC] = YCoord;
-	
+    assign VGAStr[`XC] = XCoord;
+    assign VGAStr[`YC] = YCoord;
+    
  endmodule
