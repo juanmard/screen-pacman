@@ -36,7 +36,7 @@ module TestCodeB
     output reg        get,
     output reg        mute,
     output reg  [1:0] sound,
-    input  wire       busy
+    input  wire       ready
 );
 // Output registers.
 //reg [7:0] sprite;
@@ -61,6 +61,10 @@ parameter   WAIT        = 6'b000001,
             RMV_GHOST   = 6'b000100, 
             UPDT_PACMAN = 6'b001000, 
             UPDT_GHOST  = 6'b010000, 
+            ESTADO_1    = 6'b010000,
+            ESTADO_2    = 6'b010001,
+            ESTADO_3    = 6'b010010,
+            ESTADO_4    = 6'b010011,
             WAIT_0      = 6'b100000;
 
 reg [5:0] state, next_state;
@@ -100,10 +104,10 @@ begin
     xpacman <= 6;
     ypacman <= 6;
     close <= 0;
-    orientation <= LEFT;
+    orientation <= RIGHT;
     
     //Initial Ghost.
-    ghost_orientation <= LEFT;
+    ghost_orientation <= RIGHT;
     
     // Initial others.
     temp_sprite <= 8'd7;
@@ -119,17 +123,19 @@ begin
             contframe <= (contframe == 20) ? 0 : contframe + 1;
 end
 
-/*
+
 // Something to read?    
-always @(posedge endframe)
+always @(posedge px_clk)
 begin
+/*
     if (ready)
     begin
         temp_sprite <= read_sprite;
         get <= 1'b0;
     end
-end
 */
+end
+
 
 // Update location and pacman state only once every 25 frames 
 // (for different refresh frequencies another value could be preferable)
@@ -171,14 +177,12 @@ begin
 
     if (btn1)
     begin
-        temp_sprite <= {temp_sprite[7:5], temp_sprite[4:0]+1'b1};
-        // next_state <= EDIT;
+        //temp_sprite <= {temp_sprite[7:5], temp_sprite[4:0]+1'b1};
     end
 
     if (btn2)
     begin
-        temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
-        next_state <= BLINKING;
+        //temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
     end
 
     if (xpacman < 0)  xpacman <= 39; 
@@ -217,7 +221,18 @@ end
 always @(state) begin
     case (state)
         WAIT:           begin 
-                        update <= 0;
+                            update <= 0;
+                            next_state <= BLINKING;
+                            if (btn1)
+                            begin
+                                next_state <= READ_SPRITE;
+                                //temp_sprite <= {temp_sprite[7:5], temp_sprite[4:0]+1'b1};
+                            end
+                            if (btn2)
+                            begin
+                                next_state <= BLINKING;
+                                //temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
+                            end
                         end
                         
 //        GET_SPR:        begin
@@ -232,27 +247,51 @@ always @(state) begin
                         update <= 1;
                         posx <= xpacman;
                         posy <= ypacman;
-                        sprite <= close ? temp_sprite : 0;
-//                        sprite <= close ? 3 : 0;
+                        sprite <= close ? ((temp_sprite==0) ? 3 : temp_sprite) : 0;
                         end
-/*
+
         READ_SPRITE:    begin
-                            if (busy)
-                                begin
-                                get <= 0;
-                                next_state <= READ_SPRITE;
-                                end
-                            else
-                                begin
-                                get <= 1;
-                                posx <= xpacman;
-                                posy <= ypacman;
-                                update <= 1;
-                                sprite <= close ? temp_sprite : 0;
-                                next_state <= WAIT;
-                                end
+                            get <= 1;
+                            update <= 0;
+                            posx <= xpacman + 1;
+                            posy <= ypacman;
+                            next_state <= WAIT_READ;
                         end
-*/
+
+        WAIT_READ:      begin
+                            if (ready)
+                            begin
+                                get <= 0;
+                                temp_sprite <= read_sprite;
+                                next_state <= BLINKING;
+                            end
+                        end
+
+        ESTADO_1:  begin
+                   update <= 1;
+                   posx <= xpacman;
+                   posy <= ypacman + 1;
+                   sprite <= 2;
+                   next_state <= ESTADO_2;
+                   end
+
+        ESTADO_2:  begin
+                   update <= 0;
+                   next_state <= ESTADO_3;
+                   end
+
+        ESTADO_3:  begin
+                   update <= 1;
+                   posx <= xpacman;
+                   posy <= ypacman + 1;
+                   sprite <= 4;
+                   next_state <= ESTADO_4;
+                   end
+
+        ESTADO_4:  begin
+                   update <= 0;
+                   next_state <= BLINKING;
+                   end
 /*
         WAIT_READ:
                         begin
