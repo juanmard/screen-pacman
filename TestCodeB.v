@@ -54,7 +54,7 @@ reg [4:0] contframe;        // Frames counter.
 
 // State codes for everyone object.
 parameter   WAIT        = 6'b000001, 
-            BLINKING    = 6'b000011, 
+            BLINK       = 6'b000011, 
             READ_SPRITE = 6'b000110, 
             WAIT_READ   = 6'b000111, 
             RMV_PAC     = 6'b000010, 
@@ -65,9 +65,14 @@ parameter   WAIT        = 6'b000001,
             ESTADO_2    = 6'b010001,
             ESTADO_3    = 6'b010010,
             ESTADO_4    = 6'b010011,
+            MOVER_CURSOR      = 6'b010110,
+            REPONER_SPRITE    = 6'b010111,
+            POSICIONAR_CURSOR = 6'b011000,
             WAIT_0      = 6'b100000;
 
 reg [5:0] state, next_state;
+
+parameter MAXFRAMES = 20;
 
 // Orientation codes.
 parameter   LEFT         = 3'b011,
@@ -82,15 +87,19 @@ parameter   LEFT         = 3'b011,
 // Pacman properties.
 reg [5:0] xpacman;
 reg [5:0] ypacman;
-reg close;
 reg [2:0] orientation;
+reg close;
 
 // Ghost properties.
 reg [1:0] ghost_orientation;
 
 // Test registes.
-reg [7:0] temp_sprite;
+reg [7:0] sprite_act, sprite_ant;
 
+// Cursor properties.
+reg blink;
+reg [5:0] xcursor, xcursor_next;
+reg [5:0] ycursor, ycursor_next;
 
 // Initial properties.
 initial
@@ -110,7 +119,10 @@ begin
     ghost_orientation <= RIGHT;
     
     // Initial others.
-    temp_sprite <= 8'd7;
+    sprite_act <= 8'd7;
+    blink <= 0;
+    xcursor <= 10;
+    ycursor <= 10;
 end
     
 // 25-frames counter. 
@@ -120,22 +132,8 @@ begin
         contframe <= 0;
     else
         if (endframe) 
-            contframe <= (contframe == 20) ? 0 : contframe + 1;
+            contframe <= (contframe == MAXFRAMES) ? 0 : contframe + 1;
 end
-
-
-// Something to read?    
-always @(posedge px_clk)
-begin
-/*
-    if (ready)
-    begin
-        temp_sprite <= read_sprite;
-        get <= 1'b0;
-    end
-*/
-end
-
 
 // Update location and pacman state only once every 25 frames 
 // (for different refresh frequencies another value could be preferable)
@@ -147,6 +145,7 @@ begin
     if (left)
     begin
         xpacman <= xpacman - 1;
+        xcursor_next <= xcursor_next - 1;
         orientation <= LEFT;
         //mute <= 1'b0;
         //sound <= ~sound;
@@ -155,6 +154,7 @@ begin
     if (right)
     begin
         xpacman <= xpacman + 1;
+        xcursor_next <= xcursor_next + 1;
         orientation <= RIGHT;
         //mute <= 1'b0;
         //sound <= ~sound;
@@ -163,26 +163,28 @@ begin
     if (up)
     begin
         ypacman <= ypacman - 1;
+        ycursor_next <= ycursor_next - 1;
         orientation <= UP;
-        //temp_sprite <= {temp_sprite[7:5],temp_sprite[4:0]+1'b1};
+        //sprite_act <= {sprite_act[7:5],sprite_act[4:0]+1'b1};
         //mute <= 1'b1;
     end
     
     if (down)
     begin
         ypacman <= ypacman + 1;
+        ycursor_next <= ycursor_next + 1;
         orientation <= DOWN;
-        //temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
+        //sprite_act <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
     end
 
     if (btn1)
     begin
-        //temp_sprite <= {temp_sprite[7:5], temp_sprite[4:0]+1'b1};
+        //sprite_act <= {sprite_act[7:5], sprite_act[4:0]+1'b1};
     end
 
     if (btn2)
     begin
-        //temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
+        //sprite_act <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
     end
 
     if (xpacman < 0)  xpacman <= 39; 
@@ -190,14 +192,13 @@ begin
     if (ypacman < 0)  ypacman <= 29; 
     if (ypacman > 29) ypacman <= 0; 
 
-    close <= ~close;
+    blink <= ~blink;
 
     // Ghost update.
     ghost_orientation <= ~ghost_orientation;
     
     // Point update.
     //point_orientation <= ~point_orientation;
-    
 end
 
 /* FSM implementation */
@@ -210,7 +211,7 @@ begin
         end
     else
         begin
-            if (contframe == 20)
+            if (contframe == MAXFRAMES)
                 state <= next_state;
             else
                 state <= WAIT;
@@ -220,64 +221,120 @@ end
 // State change, so you need update and doing something.
 always @(state) begin
     case (state)
-        WAIT:           begin 
+        WAIT:
+                        begin 
                             update <= 0;
-                            next_state <= BLINKING;
+                            // Se cambia de estado según las variables internas.
+                            if ((xcursor != xcursor_next) || (ycursor != ycursor_next))
+                                next_state <= MOVER_CURSOR;
+                            else
+                                next_state <= BLINK;
+
+                            // O según las variables externas al pulsar un botón, por ejemplo.
                             if (btn1)
                             begin
                                 next_state <= READ_SPRITE;
-                                //temp_sprite <= {temp_sprite[7:5], temp_sprite[4:0]+1'b1};
+                                //sprite_act <= {sprite_act[7:5], sprite_act[4:0]+1'b1};
                             end
                             if (btn2)
                             begin
-                                next_state <= BLINKING;
-                                //temp_sprite <= {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
+                                next_state <= BLINK;
+                                //sprite_act <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
                             end
                         end
-                        
-//        GET_SPR:        begin
-//                        get <= 1'b1;
-//                        end
-
-        BLINKING:
+        BLINK:
                         begin
                         // Hay que leer el sprite de la posición actual y pasarlo
-                        // al temp_sprite para hacerlo parpadear. (si es uno vacío habría que cambiarlo por uno lleno).
+                        // al sprite_act para hacerlo parpadear. (si es uno vacío habría que cambiarlo por uno lleno).
                         // ¿añadir a la información del sprite el inverso de los pixels?.
                         update <= 1;
-                        posx <= xpacman;
-                        posy <= ypacman;
-                        sprite <= close ? ((temp_sprite==0) ? 3 : temp_sprite) : 0;
+                        posx <= xcursor;
+                        posy <= ycursor;
+                        sprite <= blink ? ((sprite_act == 0) ? 8 : sprite_act) : 0;
+                        next_state <= WAIT;
+                        end
+        MOVER_CURSOR:
+                        begin
+                            // Se guarda el sprite actual.
+                            sprite_ant <= sprite_act;
+
+                            // Leer en el mapa del juego la futura posición del cursor.
+                            posx <= xcursor_next;
+                            posy <= ycursor_next;
+                            
+                            // Realizar la lectura del 'sprite' en el mapa.
+                            next_state <= READ_SPRITE;
                         end
 
-        READ_SPRITE:    begin
+        READ_SPRITE:
+                        begin
+                            // Se activa la petición de lectura del mapa del juego.
+                            // La petición se realiza sobre la posición dada por 'posx' y 'posy'.
+                            // Se pasa a un nuevo estado que espera que la lectura sea efectiva.
                             get <= 1;
-                            update <= 0;
-                            posx <= xpacman + 1;
-                            posy <= ypacman;
                             next_state <= WAIT_READ;
                         end
 
-        WAIT_READ:      begin
+        WAIT_READ:
+                        begin
+                            // Si se recibe la señal de 'ready' del mapa del juego es porque
+                            // ya tenemos en la entrada 'read_sprite' el valor requerido.
+                            // Se guarda el valor del 'sprite' y se retira la petición 'get'.
+                            //
+                            // NOTA: Esta petición 'get' puede crear problemas en la visualización.
+                            // La visualización debe tener prioridad de lectura de la RAM del mapa
+                            // luego se debe retirar la petición si la señal 'busy' del mapa de juego
+                            // se activa.
+                            // Un ejemplo podría ser este:
+                            //
+                            // if (busy)
+                            // begin
+                            //  get <= 0;
+                            //  next_state <= READ_SPRITE;
+                            // end
+                            //
                             if (ready)
                             begin
                                 get <= 0;
-                                temp_sprite <= read_sprite;
-                                next_state <= BLINKING;
+                                update <= 0;
+                                sprite_act <= read_sprite;
+                                next_state <= REPONER_SPRITE;
                             end
+                            else
+                                next_state <= WAIT_READ;
                         end
 
-        ESTADO_1:  begin
+        REPONER_SPRITE:
+                        begin
+                            update <= 1;
+                            posx <= xcursor;
+                            posy <= ycursor;
+                            sprite <= sprite_ant;
+                            next_state <= POSICIONAR_CURSOR;
+                        end
+
+        POSICIONAR_CURSOR:
+                        begin
+                            update <= 0;
+                            xcursor <= xcursor_next;
+                            ycursor <= ycursor_next;
+                            next_state <= WAIT;
+                        end
+                        
+        ESTADO_1:  begin  // WRITE_LAST_SPRITE
                    update <= 1;
-                   posx <= xpacman;
-                   posy <= ypacman + 1;
-                   sprite <= 2;
+                   posx <= xcursor;
+                   posy <= ycursor;
+                   sprite <= sprite_ant;
                    next_state <= ESTADO_2;
                    end
 
-        ESTADO_2:  begin
-                   update <= 0;
-                   next_state <= ESTADO_3;
+        ESTADO_2:  begin  // WRITE_NEW_SPRITE
+                   update <= 1;
+                   posx <= xcursor;
+                   posy <= ycursor;
+                   sprite <= sprite_ant;
+                   next_state <= BLINK;
                    end
 
         ESTADO_3:  begin
@@ -290,56 +347,9 @@ always @(state) begin
 
         ESTADO_4:  begin
                    update <= 0;
-                   next_state <= BLINKING;
+                   next_state <= BLINK;
                    end
-/*
-        WAIT_READ:
-                        begin
-                            if (ready)
-                            begin
-                                next_state <= BLINKING;
-                            end
-                        end
-*/
-/*
-        RMV_GHOST:      begin
-                        update = 1;
-                        posx = xpacman - 2; 
-//                        temp_sprite = {temp_sprite[7:5]+1'b1,temp_sprite[4:0]};
-                        sprite = temp_sprite;
-                        end
-*/
-/*
 
-        UPDT_PACMAN:    begin
-                        update <= 1;
-                        posx <= xpacman;
-                        posy <= ypacman;
-                        sprite <= temp_sprite;
-*/
-/*
-                        update = 1;
-                        posx = xpacman;
-                        posy = ypacman;
-                        if (close == 0)
-                            sprite = {orientation, 5'd3}; // open
-                        else
-                            sprite = {orientation, 5'd2}; // close    
-                            end
-*/
-/*
-        UPDT_GHOST:     begin
-                        //update = 1;
-                        //posx = xpacman - 3; 
-                        //posy = ypacman;
-//                        sprite = {ghost_orientation,6'd1};
-                        //sprite = temp_sprite;
-                        end 
-*/
-        WAIT_0:         begin
-                        update <= 0;
-                        end
-        
         default:        begin 
                         update <= 0;
                         end
