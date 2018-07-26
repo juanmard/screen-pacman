@@ -36,7 +36,10 @@ module TestCodeB
     output reg        get,
     output reg        mute,
     output reg  [1:0] sound,
-    input  wire       ready
+    input  wire       ready,
+    input  wire       serial_recive,
+    output reg        start,
+    output reg  [7:0] serial_out
 );
 // Output registers.
 //reg [7:0] sprite;
@@ -51,6 +54,8 @@ module TestCodeB
 // Dinamyc game control properties.
 reg [4:0] contframe;        // Frames counter.
 //reg update;                 // Update table game.
+
+reg descargando_mapa;
 
 // State codes for everyone object.
 parameter   WAIT        = 6'b000001, 
@@ -68,11 +73,17 @@ parameter   WAIT        = 6'b000001,
             MOVER_CURSOR      = 6'b010110,
             REPONER_SPRITE    = 6'b010111,
             POSICIONAR_CURSOR = 6'b011000,
-            WAIT_0      = 6'b100000;
+            NUEVO_SPRITE      = 6'b011001,
+            INIT_ENVIAR       = 6'b011010,
+            ENVIAR_SERIAL     = 6'b011011,
+            WAIT_SERIAL       = 6'b011100,
+            NEW_SPRITE_MAP    = 6'b011101,
+            ENVIAR_FLINEA     = 6'b011110,
+            WAIT_0            = 6'b100000;
 
 reg [5:0] state, next_state;
 
-parameter MAXFRAMES = 20;
+parameter MAXFRAMES = 10;
 
 // Orientation codes.
 parameter   LEFT         = 3'b011,
@@ -94,7 +105,7 @@ reg close;
 reg [1:0] ghost_orientation;
 
 // Test registes.
-reg [7:0] sprite_act, sprite_ant;
+reg [7:0] sprite_act, sprite_ant, sprite_temp;
 
 // Cursor properties.
 reg blink;
@@ -108,19 +119,22 @@ begin
     update <= 0;
     get <= 0;
     state <= WAIT;
-    
+    descargando_mapa <= 0;
+
     // Initial Pacman.
     xpacman <= 6;
     ypacman <= 6;
     close <= 0;
     orientation <= RIGHT;
-    
+
     //Initial Ghost.
     ghost_orientation <= RIGHT;
-    
+
     // Initial others.
     sprite_act <= 8'd7;
     blink <= 0;
+    xcursor_next <= 10;
+    ycursor_next <= 10;
     xcursor <= 10;
     ycursor <= 10;
 end
@@ -137,14 +151,16 @@ end
 
 // Update location and pacman state only once every 25 frames 
 // (for different refresh frequencies another value could be preferable)
-always @(posedge contframe[3])
+always @(posedge contframe[2])
 begin
+    // Blink the sprite.
+    blink <= ~blink;
 
     // --- Pacman update ---
     // External control.
     if (left)
     begin
-        xpacman <= xpacman - 1;
+//        xpacman <= xpacman - 1;
         xcursor_next <= xcursor_next - 1;
         orientation <= LEFT;
         //mute <= 1'b0;
@@ -153,7 +169,7 @@ begin
     
     if (right)
     begin
-        xpacman <= xpacman + 1;
+//        xpacman <= xpacman + 1;
         xcursor_next <= xcursor_next + 1;
         orientation <= RIGHT;
         //mute <= 1'b0;
@@ -162,7 +178,7 @@ begin
 
     if (up)
     begin
-        ypacman <= ypacman - 1;
+//        ypacman <= ypacman - 1;
         ycursor_next <= ycursor_next - 1;
         orientation <= UP;
         //sprite_act <= {sprite_act[7:5],sprite_act[4:0]+1'b1};
@@ -171,19 +187,9 @@ begin
     
     if (down)
     begin
-        ypacman <= ypacman + 1;
+//        ypacman <= ypacman + 1;
         ycursor_next <= ycursor_next + 1;
         orientation <= DOWN;
-        //sprite_act <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
-    end
-
-    if (btn1)
-    begin
-        //sprite_act <= {sprite_act[7:5], sprite_act[4:0]+1'b1};
-    end
-
-    if (btn2)
-    begin
         //sprite_act <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
     end
 
@@ -192,10 +198,35 @@ begin
     if (ypacman < 0)  ypacman <= 29; 
     if (ypacman > 29) ypacman <= 0; 
 
-    blink <= ~blink;
+    // O según las variables externas al pulsar un botón, por ejemplo.
+    // Si pulsamos el botón 1 modificamos el bitmap del 'sprite'.
+    if (btn1)
+    begin
+        sprite_temp <= {sprite_act[7:5], sprite_act[4:0]+1'b1};
+//        next_state <= BLINK;
+    end
+
+    // Si pulsamos el botón 2 modificamos la orientación del 'sprite'.
+    if (btn2)
+    begin
+        sprite_temp <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
+//        next_state <= BLINK;
+    end
+
+    /*
+    if (btn1 && btn2 && ~descargando_mapa)
+    begin
+        descargando_mapa <= 1;
+    end
+
+    if (state == WAIT)
+    begin
+        descargando_mapa <= 0;
+    end
+*/
 
     // Ghost update.
-    ghost_orientation <= ~ghost_orientation;
+    //ghost_orientation <= ~ghost_orientation;
     
     // Point update.
     //point_orientation <= ~point_orientation;
@@ -222,24 +253,27 @@ end
 always @(state) begin
     case (state)
         WAIT:
-                        begin 
+                        begin
+                            // Se desactiva la actualización del sprite.
                             update <= 0;
-                            // Se cambia de estado según las variables internas.
                             if ((xcursor != xcursor_next) || (ycursor != ycursor_next))
+                            begin
                                 next_state <= MOVER_CURSOR;
+                            end
                             else
                                 next_state <= BLINK;
 
-                            // O según las variables externas al pulsar un botón, por ejemplo.
-                            if (btn1)
+                            // Se ha girado o cambiado el bitmap del sprite. Actualizarlo.
+                            if (btn1 || btn2)
                             begin
-                                next_state <= READ_SPRITE;
-                                //sprite_act <= {sprite_act[7:5], sprite_act[4:0]+1'b1};
-                            end
-                            if (btn2)
-                            begin
+                                sprite_act <= sprite_temp;
                                 next_state <= BLINK;
-                                //sprite_act <= {sprite_act[7:5]+1'b1,sprite_act[4:0]};
+                            end
+
+                            // Descargar el mapa por el puerto serie. 
+                            if (btn1 && btn2) // && estado == EDIT)
+                            begin
+                                next_state <= INIT_ENVIAR;
                             end
                         end
         BLINK:
@@ -255,6 +289,7 @@ always @(state) begin
                         end
         MOVER_CURSOR:
                         begin
+                            update <= 0;
                             // Se guarda el sprite actual.
                             sprite_ant <= sprite_act;
 
@@ -265,7 +300,6 @@ always @(state) begin
                             // Realizar la lectura del 'sprite' en el mapa.
                             next_state <= READ_SPRITE;
                         end
-
         READ_SPRITE:
                         begin
                             // Se activa la petición de lectura del mapa del juego.
@@ -274,7 +308,6 @@ always @(state) begin
                             get <= 1;
                             next_state <= WAIT_READ;
                         end
-
         WAIT_READ:
                         begin
                             // Si se recibe la señal de 'ready' del mapa del juego es porque
@@ -296,14 +329,14 @@ always @(state) begin
                             if (ready)
                             begin
                                 get <= 0;
-                                update <= 0;
                                 sprite_act <= read_sprite;
-                                next_state <= REPONER_SPRITE;
+                                if (descargando_mapa)
+                                    next_state <= ENVIAR_SERIAL;
+                                else
+                                    next_state <= REPONER_SPRITE;
                             end
-                            else
-                                next_state <= WAIT_READ;
                         end
-
+        // Se repone el sprite por donde ha pasado el cursor.
         REPONER_SPRITE:
                         begin
                             update <= 1;
@@ -312,31 +345,83 @@ always @(state) begin
                             sprite <= sprite_ant;
                             next_state <= POSICIONAR_CURSOR;
                         end
-
+        // Se actualiza la posición del cursor.
         POSICIONAR_CURSOR:
                         begin
                             update <= 0;
                             xcursor <= xcursor_next;
                             ycursor <= ycursor_next;
+                            next_state <= NUEVO_SPRITE;
+                        end
+        // Se actualiza el nuevo sprite con la posición nueva del cursor.
+        NUEVO_SPRITE:   begin
+                            update <= 1;
+                            posx <= xcursor;
+                            posy <= ycursor;
+                            sprite <= sprite_act;
                             next_state <= WAIT;
                         end
-                        
-        ESTADO_1:  begin  // WRITE_LAST_SPRITE
+        // Se inicia las variables para descargar los sprites por el puerto serie.
+        INIT_ENVIAR:    begin
+                            descargando_mapa <= 1;
+                            update <= 0;
+                            posx <= 0;
+                            posy <= 0;
+                            next_state <= READ_SPRITE;
+                        end
+        // Se envía el sprite leído por el puerto serie.
+        ENVIAR_SERIAL:  begin
+                            start <= 1;
+                            serial_out <= sprite_act;
+                            next_state <= WAIT_SERIAL;
+                        end
+        ENVIAR_FLINEA:  begin
+                            start <= 1;
+                            serial_out <= 8'd13;
+                            next_state <= WAIT_SERIAL;
+                        end
+        WAIT_SERIAL:    begin
+                            if (serial_recive)
+                            begin
+                                start <= 0;
+                                next_state <= NEW_SPRITE_MAP;
+                            end
+                            else
+                                next_state <= WAIT_SERIAL;
+                        end
+        // Se actualiza la posición de lectura y se vuelve a leer.
+        NEW_SPRITE_MAP:     begin
+                                update <= 0;
+                                next_state <= ENVIAR_SERIAL;
+                                posx <= posx + 1;
+                                if (posx == 40)
+                                begin
+                                    posx <= 0;
+                                    posy <= posy + 1;
+                                    next_state <= ENVIAR_FLINEA;
+                                    if (posy == 30)
+                                    begin
+                                        descargando_mapa <= 0;
+                                        next_state <= WAIT;
+                                    end
+                                end
+                            end
+
+        ESTADO_1:  begin
                    update <= 1;
-                   posx <= xcursor;
-                   posy <= ycursor;
-                   sprite <= sprite_ant;
-                   next_state <= ESTADO_2;
+                   posx <= xpacman;
+                   posy <= ypacman + 1;
+                   sprite <= 4;
+                   next_state <= ESTADO_4;
                    end
 
-        ESTADO_2:  begin  // WRITE_NEW_SPRITE
+        ESTADO_2:  begin
                    update <= 1;
-                   posx <= xcursor;
-                   posy <= ycursor;
-                   sprite <= sprite_ant;
-                   next_state <= BLINK;
+                   posx <= xpacman;
+                   posy <= ypacman + 1;
+                   sprite <= 4;
+                   next_state <= ESTADO_4;
                    end
-
         ESTADO_3:  begin
                    update <= 1;
                    posx <= xpacman;
