@@ -25,6 +25,19 @@ Los bloques empleados para la comunicación serie son los bloques de la [colecci
 
 ![foto de la pantalla](https://raw.githubusercontent.com/juanmard/screen-pacman/master/doc/images/pantalla.png)
 
+### Nuevo esquema (Agosto de 2018).
+
+Se ha cambiado por completo el esquema de funcionamiento interno del proyecto. En lugar de una única máquina de estados (FSM) para todo el juego, se ha dividido el comportamiento de cada uno de los *actores* con sus FSM correspondientes y se ha dado paso a actualizar su estado en el mapa del juego (*map.v* y *map.ice*).
+El "stream" VGA sólo atraviesa el mapa y esto permite independizar completamente el comportamiento de los actores de su visualización en el monitor.
+El esquema principal del juego ahora tiene este aspecto:
+
+![foto del nuevo esquema](https://raw.githubusercontent.com/juanmard/screen-pacman/master/gallery/nuevo_esquema.png)
+
+En él se actualizan los valores de los distintos actores al mismo tiempo, en forma paralele, se cambian sus "sprites" en la BRAM del mapa de forma ordenada siendo seleccionados por un simple contador.
+
+
+![foto de la pantalla](https://raw.githubusercontent.com/juanmard/screen-pacman/master/doc/images/pantalla.png)
+
 ## Dispositivo empleado.
 
 Las pruebas iniciales se realizaron en una [TinyFPGA-B2](https://store.tinyfpga.com/products/tinyfpga-b2) con la **versión 0.3.3-rc** de _icestudio_, posteriormente se realizaron en una tarjeta [TinyFPGA-BX](https://store.tinyfpga.com/products/tinyfpga-bx), este dispositivo no se encuentra en estos momentos (Julio de 2018) integrado en dicha versión de icestudio, por lo que se realiza una exportación del código Verilog al fichero "screen-pacman.v" y se genera el fichero "top.v" como puente para sintetizar mediante las herramientas básicas de [icestorm](http://www.clifford.at/icestorm/) y [apio](https://github.com/FPGAwars/apio) (versión 0.4.0b3).
